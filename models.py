@@ -25,59 +25,49 @@ class Controller:
 
     def get_product(self):
         return self.__product_list
-<<<<<<< HEAD
 
     def search_product_by_id(self, id):
         for product in self.__product_list:
             if product.product_id == id:
                 return product
 
-    def add_user_session(self, username):
-        self.__user_sessions.add(username)
-
-    def remove_user_session(self, username):
-        self.__user_sessions.remove(username)
-=======
-    
-    def add_promotion(self,promotion):
+    def add_promotion(self, promotion):
         self.__product_list.append(promotion)
-    
-    def search_product_by_id(self,id):
+
+    def search_product_by_id(self, id):
         for product in self.__product_list:
             if product.product_id == id:
                 return product
-            
-    def search_product_by_name(self,name):
+
+    def search_product_by_name(self, name):
         for product in self.__product_list:
             if product.name == name:
                 return product
-    
-    def search_product_by_category(self,category):
+
+    def search_product_by_category(self, category):
         product_list = []
         for product in self.__product_list:
             if product.category == category:
                 product_list.append(product)
-            return product 
+            return product
 
-    def search_product_by_color(self,color):
+    def search_product_by_color(self, color):
         product_list = []
         for product in self.__product_list:
             if product.color == color:
                 product_list.append(product)
-            return product 
-        
-    def add_history_order_list(self,order):
+            return product
+
+    def add_history_order_list(self, order):
         self.__history_order_list.append(order)
-    
+
     @property
     def get_product_list(self):
         return self.__product_list
-    
+
     @property
     def get_promotion_list(self):
         return self.__promotion_list
-
->>>>>>> 9b454c8166e9c4660cb800bd89c6425639e88545
 
 
 class Account:
