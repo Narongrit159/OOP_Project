@@ -29,7 +29,7 @@
     <!--=============== HEADER ===============-->
     <header class="header" id="header">
       <nav class="nav container">
-        <a href="#" class="nav__logo">
+        <a href="{{ request.url_for('get_index') }}" class="nav__logo">
           <i class="bx bxs-shopping-bags nav__logo-icon"></i> CHICK CLOTH SHOP
         </a>
 
@@ -119,8 +119,8 @@
                   </p>
 
                   <div class="home__buttons">
-                    <a href="details.html" class="button">Buy Now</a>
-                    <a href="details.html" class="button--link button--flex"
+                    <a href="#" class="button">Buy Now</a>
+                    <a href="#" class="button--link button--flex"
                       >View Details
                       <i class="bx bx-right-arrow-alt button__icon"></i
                     ></a>
@@ -160,8 +160,8 @@
                   </p>
 
                   <div class="home__buttons">
-                    <a href="details.html" class="button">Buy Now</a>
-                    <a href="details.html" class="button--link button--flex"
+                    <a href="#" class="button">Buy Now</a>
+                    <a href="#" class="button--link button--flex"
                       >View Details
                       <i class="bx bx-right-arrow-alt button__icon"></i
                     ></a>
@@ -201,8 +201,8 @@
                   </p>
 
                   <div class="home__buttons">
-                    <a href="details.html" class="button">Buy Now</a>
-                    <a href="details.html" class="button--link button--flex"
+                    <a href="#" class="button">Buy Now</a>
+                    <a href="#" class="button--link button--flex"
                       >View Details
                       <i class="bx bx-right-arrow-alt button__icon"></i
                     ></a>
@@ -228,6 +228,7 @@
               <!--NEW CONTENT-->
               <div class="new__content swiper-slide">
                 <div class="new__tag">New</div>
+                <a href="{{ url_for('details', product_id=product.product_id) }}">
                 <img
                   src="{{ request.url_for('static', path=product.picture) }}"
                   alt=""
@@ -245,6 +246,7 @@
                   <i class="bx bx-cart-alt new__icon"></i>
                 </a>
               </div>
+            </a>
             {% endfor %}
 
             </div>

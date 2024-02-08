@@ -33,7 +33,7 @@
     <!--=============== HEADER ===============-->
     <header class="header" id="header">
       <nav class="nav container">
-        <a href="index.html" class="nav__logo">
+        <a href="{{ request.url_for('get_index') }}" class="nav__logo">
           <i class="bx bxs-shopping-bags nav__logo-icon"></i> CHICK CLOTH SHOP
         </a>
 
@@ -205,30 +205,31 @@
 
           <div class="shop__items grid">
             {% for product in products %}
-            <div class="shop__content">
-              <img
-                src="{{ request.url_for('static', path=product.picture) }}"
-                alt=""
-                class="shop__img"
-              />
-              <h3 class="shop__title">{{ product.name }}</h3>
-              <span class="shop__subtitle">{{ product.category }}</span>
+              <div class="shop__content">
+                <a href="{{ url_for('details', product_id=product.product_id) }}">
+               <img
+                  src="{{ request.url_for('static', path=product.picture) }}"
+                  alt=""
+                  class="shop__img"
+                />
+                <h3 class="shop__title">{{ product.name }}</h3>
+                <span class="shop__subtitle">{{ product.category }}</span>
 
-              <div class="shop__prices">
-                <span class="shop__price">${{ product.price }}</span>
-                <span class="shop__discounts"
-                  >${{ '%.2f'|format(product.price*1.2) }}</span
+                <div class="shop__prices">
+                  <span class="shop__price">${{ product.price }}</span>
+                  <span class="shop__discounts"
+                    >${{ '%.2f'|format(product.price*1.2) }}</span
+                  >
+                </div>
+
+                <a
+                  class="button shop__button"
+                  href="{{ url_for('details', product_id=product.product_id) }}"
                 >
+                  <i class="bx bx-cart-alt shop__icon"></i>
+                </a>
               </div>
-
-              <a
-                class="button shop__button"
-                href="{{ url_for('details', product_id=product.product_id) }}"
-              >
-                <i class="bx bx-cart-alt shop__icon"></i>
-              </a>
-            </div>
-
+            </a>
             {% endfor %}
           </div>
         </div>

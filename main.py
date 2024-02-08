@@ -231,8 +231,6 @@ def details(request: Request, product_id: int):
     product = chick_shop.search_product_by_id(product_id)
     product_list = chick_shop.get_product()
 
-    print(product)
-
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
 
@@ -250,7 +248,8 @@ def details(request: Request, product_id: int):
             )
 
     return templates.TemplateResponse(
-        "details.html", {"request": request, "product": product}
+        "details.html",
+        {"request": request, "product": product, "product_list": product_list},
     )
 
 
