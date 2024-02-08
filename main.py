@@ -224,8 +224,18 @@ def get_shop(request: Request, user: str = Cookie(default=None)):
     )
 
 
-@app.get("/details", response_class=HTMLResponse)
-def get_details(request: Request, user: str = Cookie(default=None)):
+@app.get("/details/{product_id}")
+def details(request: Request, product_id: int):
+    user = request.cookies.get("user")
+
+    product = chick_shop.search_product_by_id(product_id)
+    product_list = chick_shop.get_product()
+
+    print(product)
+
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
     if user:
         account = chick_shop.get_account_by_username(user)
         if account:
@@ -234,11 +244,13 @@ def get_details(request: Request, user: str = Cookie(default=None)):
                 {
                     "request": request,
                     "user": account.username,
-                    "products": chick_shop.get_product(),
+                    "product": product,
+                    "product_list": product_list,
                 },
             )
+
     return templates.TemplateResponse(
-        "shop.html", {"request": request, "products": chick_shop.get_product()}
+        "details.html", {"request": request, "product": product}
     )
 
 

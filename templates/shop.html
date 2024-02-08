@@ -27,7 +27,7 @@
       class="js-color-style"
       href="{{ url_for('static', path='css/colors/color-1.css') }}"
     />
-    <title>Responsive e-commerce website - Crypticalcoder</title>
+    <title>CHICK CLOTH SHOP</title>
   </head>
   <body>
     <!--=============== HEADER ===============-->
@@ -205,10 +205,7 @@
 
           <div class="shop__items grid">
             {% for product in products %}
-            <div
-              class="shop__content"
-              href="{{ request.url_for('get_details') }}"
-            >
+            <div class="shop__content">
               <img
                 src="{{ request.url_for('static', path=product.picture) }}"
                 alt=""
@@ -218,29 +215,22 @@
               <span class="shop__subtitle">{{ product.category }}</span>
 
               <div class="shop__prices">
-                <span class="shop__price">{{ product.price }}</span>
-                <span class="shop__discounts">{{ product.price }}</span>
+                <span class="shop__price">${{ product.price }}</span>
+                <span class="shop__discounts"
+                  >${{ '%.2f'|format(product.price*1.2) }}</span
+                >
               </div>
 
-              <a href="details.html" class="button shop__button">
+              <a
+                class="button shop__button"
+                href="{{ url_for('details', product_id=product.product_id) }}"
+              >
                 <i class="bx bx-cart-alt shop__icon"></i>
               </a>
             </div>
 
             {% endfor %}
           </div>
-        </div>
-
-        <div class="pagination">
-          <i class="bx bx-chevron-left pagination__icon"></i>
-
-          <span class="current">1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>&middot; &middot; &middot;</span>
-          <span>9</span>
-
-          <i class="bx bx-chevron-right pagination__icon"></i>
         </div>
       </section>
     </main>

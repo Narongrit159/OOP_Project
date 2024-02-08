@@ -237,11 +237,11 @@
                 <span class="new__subtitle">{{ product.category }}</span>
 
                 <div class="new__prices">
-                  <span class="new__price">{{ product.price }}</span>
-                  <span class="new__discount">{{ product.price }}</span>
+                  <span class="new__price">${{ product.price }}</span>
+                  <span class="new__discount">${{ '%.2f'|format(product.price*1.2) }}</span>
                 </div>
 
-                <a href="details.html" class="button new__button">
+                <a class="button new__button" href="{{ url_for('details', product_id=product.product_id) }}">
                   <i class="bx bx-cart-alt new__icon"></i>
                 </a>
               </div>
