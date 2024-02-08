@@ -1,9 +1,11 @@
 # main.py
-from fastapi import FastAPI, Depends, HTTPException, Form
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Depends, HTTPException, Form, Cookie, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.security import OAuth2PasswordRequestForm
+from typing import Set
 from models import Account, Product, Controller
 
 app = FastAPI()
@@ -155,73 +157,83 @@ def add_new_product():
 add_new_product()
 
 
-def is_user_logged_in(request: Request):
-    return "user" in request.cookies
-
-
-def is_user_authenticated(username: str = Form(...), password: str = Form(...)):
-    account = chick_shop.get_account_by_username(username)
-    if account and account.password == password:
-        return account
-    return None
-
-
 @app.post("/", response_class=HTMLResponse)
 def post_home(
     request: Request,
     username: str = Form(...),
     password: str = Form(...),
-    logged_in: bool = Depends(is_user_logged_in),
-    account: Account = Depends(is_user_authenticated),
 ):
-    if account:
+
+    user = chick_shop.get_account_by_username(username)
+
+    if user and user.password == password:
         response = templates.TemplateResponse(
             "index.html",
             {
                 "request": request,
-                "user": account.username,
+                "user": user.username,
                 "products": chick_shop.get_product(),
             },
         )
-        response.set_cookie("user", account.username)
+        response.set_cookie("user", user.username)
         return response
-    return templates.TemplateResponse(
-        "login.html",
-        {
-            "request": request,
-            "error_message": "Login unsuccessful. Please try again.",
-            "products": chick_shop.get_product(),
-        },
-    )
-
-
-@app.get("/login", response_class=HTMLResponse)
-def get_login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    else:
+        return templates.TemplateResponse(
+            "login.html",
+            {
+                "request": request,
+                "error_message": "Login unsuccessful. Please try again.",
+            },
+        )
 
 
 @app.get("/", response_class=HTMLResponse)
-def get_home(request: Request, logged_in: bool = Depends(is_user_logged_in)):
+def get_index(request: Request, user: str = Cookie(default=None)):
+    if user:
+        account = chick_shop.get_account_by_username(user)
+        if account:
+            return templates.TemplateResponse(
+                "index.html",
+                {
+                    "request": request,
+                    "user": account.username,
+                    "products": chick_shop.get_product(),
+                },
+            )
+
     return templates.TemplateResponse(
         "index.html", {"request": request, "products": chick_shop.get_product()}
     )
 
 
 @app.get("/shop", response_class=HTMLResponse)
-def get_shop(request: Request):
+def get_shop(request: Request, user: str = Cookie(default=None)):
+    if user:
+        account = chick_shop.get_account_by_username(user)
+        if account:
+            return templates.TemplateResponse(
+                "shop.html",
+                {
+                    "request": request,
+                    "user": account.username,
+                    "products": chick_shop.get_product(),
+                },
+            )
     return templates.TemplateResponse(
         "shop.html", {"request": request, "products": chick_shop.get_product()}
     )
 
 
-@app.get("/index", response_class=HTMLResponse)
-def get_index(request: Request):
+@app.get("/login", response_class=HTMLResponse)
+def get_login(request: Request):
     return templates.TemplateResponse(
-        "index.html", {"request": request, "products": chick_shop.get_product()}
+        "login.html", {"request": request, "products": chick_shop.get_product()}
     )
 
 
-if __name__ == "__main__":
-    import uvicorn
+@app.get("/logout", response_class=HTMLResponse)
+def logout(request: Request):
 
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    response = RedirectResponse(url="/")
+    response.delete_cookie("user")
+    return response

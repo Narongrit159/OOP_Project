@@ -1,9 +1,15 @@
+from typing import Set
+
+
 class Controller:
     def __init__(self):
         self.__account_list = []
         self.__promotion_list = []
         self.__product_list = []
         self.__history_order_list = []
+
+    def add_account(self, account):
+        self.__account_list.append(account)
 
     def add_account(self, account):
         self.__account_list.append(account)
@@ -15,22 +21,21 @@ class Controller:
         for account in self.__account_list:
             if account.username == username:
                 return account
-            return None
-
-    def validate_user_credentials(self, username, password):
-        user = self.get_user_by_username(username)
-        if user and user.password == password:
-            return True
-        return False
+        return None
 
     def get_product(self):
         return self.__product_list
-    
-    def search_product_by_id(self,id):
+
+    def search_product_by_id(self, id):
         for product in self.__product_list:
             if product.product_id == id:
                 return product
-        
+
+    def add_user_session(self, username):
+        self.__user_sessions.add(username)
+
+    def remove_user_session(self, username):
+        self.__user_sessions.remove(username)
 
 
 class Account:
@@ -45,7 +50,6 @@ class Account:
     @property
     def password(self):
         return self.__password
-
 
 
 class Product:
@@ -81,68 +85,65 @@ class Product:
     @property
     def picture(self):
         return self.__picture
-    
-    
-    
+
+
 class Cart:
-    def __init__(self) :
+    def __init__(self):
         self.__selected_product_list = []
-        self.__total_price           = None
-        
-    def add_product_to_cart(self,controller,product_id):
+        self.__total_price = None
+
+    def add_product_to_cart(self, controller, product_id):
         product = controller.search_product_by_id(product_id)
         self.__selected_product_list.append(product)
-        
-    def remove_selected_product(self,product_id):
+
+    def remove_selected_product(self, product_id):
         for product in self.__selected_product_list:
             if product.product_id == product_id:
                 self.__selected_product_list.remove(product)
-                
+
     def calculate_total_prize(self):
         for product in self.__selected_product_list:
             for product_price in product.price:
                 self.__total_price += product_price
-            
+
     @property
     def show_selected_product_list(self):
         return self.__selected_product_list
-    
+
     @property
     def show_total_price(self):
         return self.__total_price
-    
 
 
 class Promotion:
-    def __init__(self,name,promotion_id,discount_price):
+    def __init__(self, name, promotion_id, discount_price):
         self.__promotion_name = name
-        self.__promotion_id   = promotion_id
-        self.__dicount_price  = discount_price
-        
+        self.__promotion_id = promotion_id
+        self.__dicount_price = discount_price
+
     @property
     def promotion_name(self):
         return self.__promotion_name
-    
+
     @property
     def promotion_id(self):
         return self.__promotion_id
-    
+
     @property
     def discount(self):
         return self.__dicount_price
-    
-    
-    
+
+
 class Order:
-    def __init__(self,order_id,cart,account,address,tel,status):
+    def __init__(self, order_id, cart, account, address, tel, status):
         self.__order_id = order_id
-        self.__cart     = cart
-        self.__account  = account
-        self.__address  = address
-        self.__tel      = tel
-        self.__status   = status
-        
-    
-        
-        
-        
+        self.__cart = cart
+        self.__account = account
+        self.__address = address
+        self.__tel = tel
+        self.__status = status
+
+
+class LoginInfo(Account):
+    username: str
+    password: str

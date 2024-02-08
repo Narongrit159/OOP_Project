@@ -63,9 +63,20 @@
           <div class="nav__shop" id="cart-shop">
             <i class="bx bx-shopping-bag"></i>
           </div>
+
+          {% if user %}
           <div class="login__toggle">
             <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
           </div>
+          <div class="nav__menu">
+            <a class="">Welcome , {{ user }}</a>
+            <a href="/logout" , class="">Logout</a>
+          </div>
+          {% else %}
+          <div class="login__toggle">
+            <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
+          </div>
+          {% endif %}
 
           <div class="nav__toggle" id="nav-toggle">
             <i class="bx bx-grid-alt"></i>
@@ -299,53 +310,6 @@
     <a href="#" class="scrollup" id="scroll-up">
       <i class="bx bx-up-arrow-alt scrollup__icon"></i>
     </a>
-
-    <!--=============== STYLE SWITCHER ===============-->
-    <div class="style__switcher">
-      <div class="style__switcher-toggler s__icon">
-        <i class="bx bxs-cog bx-spin"></i>
-      </div>
-
-      <h4>Theme Colors</h4>
-
-      <div class="theme__colors js-theme-colors">
-        <button
-          type="button"
-          data-js-theme-color="color-1"
-          class="js-theme-color-item theme__button color-1"
-        >
-          <i class="bx bx-check"></i>
-        </button>
-        <button
-          type="button"
-          data-js-theme-color="color-2"
-          class="js-theme-color-item theme__button color-2"
-        >
-          <i class="bx bx-check"></i>
-        </button>
-        <button
-          type="button"
-          data-js-theme-color="color-3"
-          class="js-theme-color-item theme__button color-3"
-        >
-          <i class="bx bx-check"></i>
-        </button>
-        <button
-          type="button"
-          data-js-theme-color="color-4"
-          class="js-theme-color-item theme__button color-4"
-        >
-          <i class="bx bx-check"></i>
-        </button>
-        <button
-          type="button"
-          data-js-theme-color="color-5"
-          class="js-theme-color-item theme__button color-5"
-        >
-          <i class="bx bx-check"></i>
-        </button>
-      </div>
-    </div>
 
     <!--=============== SWIPER JS ===============-->
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
