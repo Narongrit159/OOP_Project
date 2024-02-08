@@ -1,16 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/swiper-bundle.min.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/style.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      class="js-color-style"
+      href="{{ url_for('static', path='css/colors/color-1.css') }}"
+    />
+    <title>CHICK CLOTH SHOP</title>
   </head>
   <body>
-    <h2>Login</h2>
-    <form action="/" method="post">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required /><br />
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required /><br />
-      <input type="submit" value="Login" />
-    </form>
+    <!--=============== HEADER ===============-->
+    <header class="header" id="header">
+      <nav class="nav container">
+        <a href="#" class="nav__logo">
+          <i class="bx bxs-shopping-bags nav__logo-icon"></i> CHICK CLOTH SHOP
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a
+                href="{{ request.url_for('get_index') }}"
+                class="nav__link"
+                >Home</a
+              >
+            </li>
+
+            <li class="nav__item">
+              <a href="{{ request.url_for('get_shop') }}" class="nav__link"
+                >Shop</a
+              >
+            </li>
+          </ul>
+
+          <div class="nav__close" id="nav-close">
+            <i class="bx bx-x"></i>
+          </div>
+        </div>
+
+        <div class="nav__btns">
+          <div class="nav__shop" id="cart-shop">
+            <i class="bx bx-shopping-bag"></i>
+          </div>
+
+          <div class="login__toggle" id="login-button">
+            <i class="bx bx-user"></i>
+          </div>
+
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="bx bx-grid-alt"></i>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!--=============== LOGIN ===============-->
+    <main class="main">
+      <!--=============== CONTACT US ===============-->
+      <section class="contact section container">
+        <h2 class="breadcrumb__title">Login Page</h2>
+        <h3 class="breadcrumb__subtitle">Home > <span>Login</span></h3>
+
+        <form action="/" method="post" class="login__form grid">
+          <div class="login__content">
+            <label for="username" class="login__label">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="login__input"
+            />
+          </div>
+        
+            <div class="login__content">
+              <label for="password" class="login__label">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="login__input"
+                  />
+            </div>
+            <div>
+              <button type="submit" class="button">Sign in</button>
+            </div>
+    
+            {% if error_message %}
+            <p>{{ error_message }}</p>
+            {% endif %}
+    
+            <div>
+              <p class="signup">
+                Not a member? <a href="registration.html">Sign up now</a>
+              </p>
+            </div>
+      </section>
+    </main>
+      </form>
+    </div>
+    <!--=============== SCROLL UP ===============-->
+    <a href="#" class="scrollup" id="scroll-up">
+      <i class="bx bx-up-arrow-alt scrollup__icon"></i>
+    </a>
+
+    <!--=============== SWIPER JS ===============-->
+    <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
+
+    <!--=============== JS ===============-->
+    <script src="{{ url_for('static', path='js/main.js') }}"></script>
   </body>
 </html>

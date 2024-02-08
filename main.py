@@ -155,26 +155,15 @@ def add_new_product():
 add_new_product()
 
 
-def get_current_user(username: str, password: str, logged_in: bool = Depends()):
-    if not logged_in:
-        return None
-    account = chick_shop.get_account_by_username(username)
-    if account and account.password == password:
-        return account
-    return None
-
-
 def is_user_logged_in(request: Request):
     return "user" in request.cookies
 
 
-@app.get("/", response_class=HTMLResponse)
-def get_home(request: Request, logged_in: bool = Depends(is_user_logged_in)):
-    if not logged_in:
-        return templates.TemplateResponse(
-            "index.html", {"request": request, "products": chick_shop.get_product()}
-        )
-    return templates.TemplateResponse("login.html", {"request": request})
+def is_user_authenticated(username: str = Form(...), password: str = Form(...)):
+    account = chick_shop.get_account_by_username(username)
+    if account and account.password == password:
+        return account
+    return None
 
 
 @app.post("/", response_class=HTMLResponse)
@@ -183,37 +172,53 @@ def post_home(
     username: str = Form(...),
     password: str = Form(...),
     logged_in: bool = Depends(is_user_logged_in),
+    account: Account = Depends(is_user_authenticated),
 ):
-    try:
-        account = get_current_user(username, password, logged_in)
-        if account:
-            response = templates.TemplateResponse(
-                "products.html",
-                {
-                    "request": request,
-                    "user": account.username,
-                    "products": chick_shop.get_products(),
-                },
-            )
-            response.set_cookie("user", account.username)
-            return response
-        return templates.TemplateResponse("index.html", {"request": request})
-    except HTTPException as e:
-        return templates.TemplateResponse(
-            "products.html", {"request": request, "error_message": str(e.detail)}
+    if account:
+        response = templates.TemplateResponse(
+            "index.html",
+            {
+                "request": request,
+                "user": account.username,
+                "products": chick_shop.get_product(),
+            },
         )
+        response.set_cookie("user", account.username)
+        return response
+    return templates.TemplateResponse(
+        "login.html",
+        {
+            "request": request,
+            "error_message": "Login unsuccessful. Please try again.",
+            "products": chick_shop.get_product(),
+        },
+    )
 
 
 @app.get("/login", response_class=HTMLResponse)
-def get_login(request: Request, logged_in: bool = Depends(is_user_logged_in)):
-    if not logged_in:
-        return templates.TemplateResponse("login.html", {"request": request})
-    return HTMLResponse(url="/", status_code=303)
+def get_login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+
+@app.get("/", response_class=HTMLResponse)
+def get_home(request: Request, logged_in: bool = Depends(is_user_logged_in)):
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "products": chick_shop.get_product()}
+    )
 
 
 @app.get("/shop", response_class=HTMLResponse)
 def get_shop(request: Request):
-    return templates.TemplateResponse("shop.html", {"request": request})
+    return templates.TemplateResponse(
+        "shop.html", {"request": request, "products": chick_shop.get_product()}
+    )
+
+
+@app.get("/index", response_class=HTMLResponse)
+def get_index(request: Request):
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "products": chick_shop.get_product()}
+    )
 
 
 if __name__ == "__main__":
