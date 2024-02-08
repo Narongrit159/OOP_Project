@@ -74,3 +74,9 @@ class Product:
     @property
     def picture(self):
         return self.__picture
+
+
+
+class Order:
+    def __init__(self):
+        pass
