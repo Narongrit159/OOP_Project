@@ -11,7 +11,7 @@ class Controller:
     def add_product(self, product):
         self.__product_list.append(product)
 
-    def get_user_by_username(self, username):
+    def get_account_by_username(self, username):
         for account in self.__account_list:
             if account.username == username:
                 return account
