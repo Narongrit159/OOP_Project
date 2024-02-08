@@ -1041,7 +1041,6 @@ input {
 
 .footer__logo {
     color: var(--title-color);
-    text-transform: lowercase;
     font-weight: var(--font-bold);
     letter-spacing: 1px;
     display: inline-flex;

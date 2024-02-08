@@ -42,9 +42,22 @@ class Account:
 
 
 class Product:
-    def __init__(self, name, price):
+    def __init__(self, id, name, price, catagory, color, picture, quanity):
+        self.__product_id = id
+        self.__color = color
         self.__name = name
         self.__price = price
+        self.__catagory = catagory
+        self.__picture = picture
+        self.__quanity = quanity
+
+    @property
+    def product_id(self):
+        return self.__product_id
+
+    @property
+    def color(self):
+        return self.__color
 
     @property
     def name(self):
@@ -53,3 +66,11 @@ class Product:
     @property
     def price(self):
         return self.__price
+
+    @property
+    def catagory(self):
+        return self.__catagory
+
+    @property
+    def picture(self):
+        return self.__picture

@@ -13,15 +13,146 @@ templates = Jinja2Templates(directory="templates")
 chick_shop = Controller()
 chick_shop.add_account(Account("chicken", "0000"))
 
-chick_shop.add_product(Product(name="Product 1", price=19))
-chick_shop.add_product(Product(name="Product 2", price=28))
-chick_shop.add_product(Product(name="Product 3", price=37))
-chick_shop.add_product(Product(name="Product 4", price=46))
-chick_shop.add_product(Product(name="Product 5", price=55))
-chick_shop.add_product(Product(name="Product 6", price=64))
-chick_shop.add_product(Product(name="Product 7", price=73))
-chick_shop.add_product(Product(name="Product 8", price=82))
-chick_shop.add_product(Product(name="Product 9", price=91))
+
+def add_new_product():
+    chick_shop.add_product(
+        Product(
+            1,
+            "Windbreaker Jacket",
+            14.99,
+            "Accessory",
+            "red",
+            "img/new-1.png",
+            10,
+        )
+    )
+    chick_shop.add_product(
+        Product(
+            2,
+            "Air Jordan Zipper",
+            11.99,
+            "Accessory",
+            "red",
+            "img/new-2.png",
+            10,
+        )
+    )
+
+    chick_shop.add_product(
+        Product(
+            3,
+            "Fur Jacket",
+            4.99,
+            "Accessory",
+            "red",
+            "img/new-3.png",
+            10,
+        )
+    )
+    chick_shop.add_product(
+        Product(
+            4,
+            "Fleece Jacket",
+            24.99,
+            "Accessory",
+            "red",
+            "img/new-4.png",
+            10,
+        )
+    )
+    chick_shop.add_product(
+        Product(
+            5,
+            "Nike Hoodie",
+            7.99,
+            "Accessory",
+            "red",
+            "img/new-5.png",
+            10,
+        )
+    )
+    chick_shop.add_product(
+        Product(
+            6,
+            "Fleece Jacket",
+            5.99,
+            "Accessory",
+            "red",
+            "img/new-6.png",
+            10,
+        )
+    )
+
+    chick_shop.add_product(
+        Product(
+            7,
+            "Windbreaker Jacket",
+            14.99,
+            "Accessory",
+            "red",
+            "img/new-1.png",
+            10,
+        )
+    )
+    chick_shop.add_product(
+        Product(
+            8,
+            "Air Jordan Zipper",
+            11.99,
+            "Accessory",
+            "red",
+            "img/new-2.png",
+            10,
+        )
+    )
+
+    chick_shop.add_product(
+        Product(
+            9,
+            "Fur Jacket",
+            4.99,
+            "Accessory",
+            "red",
+            "img/new-3.png",
+            10,
+        )
+    )
+    chick_shop.add_product(
+        Product(
+            10,
+            "Fleece Jacket",
+            24.99,
+            "Accessory",
+            "red",
+            "img/new-4.png",
+            10,
+        )
+    )
+    chick_shop.add_product(
+        Product(
+            11,
+            "Nike Hoodie",
+            7.99,
+            "Accessory",
+            "red",
+            "img/new-5.png",
+            10,
+        )
+    )
+    chick_shop.add_product(
+        Product(
+            12,
+            "Fleece Jacket",
+            5.99,
+            "Accessory",
+            "red",
+            "img/new-6.png",
+            10,
+        )
+    )
+
+
+add_new_product()
 
 
 def get_current_user(username: str, password: str, logged_in: bool = Depends()):
@@ -40,7 +171,9 @@ def is_user_logged_in(request: Request):
 @app.get("/", response_class=HTMLResponse)
 def get_home(request: Request, logged_in: bool = Depends(is_user_logged_in)):
     if not logged_in:
-        return templates.TemplateResponse("index.html", {"request": request})
+        return templates.TemplateResponse(
+            "index.html", {"request": request, "products": chick_shop.get_product()}
+        )
     return templates.TemplateResponse("login.html", {"request": request})
 
 
@@ -78,13 +211,12 @@ def get_login(request: Request, logged_in: bool = Depends(is_user_logged_in)):
     return HTMLResponse(url="/", status_code=303)
 
 
+@app.get("/shop", response_class=HTMLResponse)
+def get_shop(request: Request):
+    return templates.TemplateResponse("shop.html", {"request": request})
+
+
 if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="127.0.0.1", port=8000)
-
-css_files = [
-    "style.css",
-    "swiper-bundle.min.css",
-    # เพิ่มไฟล์ CSS ต่อไปตามต้องการ
-]
