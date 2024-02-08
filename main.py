@@ -224,6 +224,24 @@ def get_shop(request: Request, user: str = Cookie(default=None)):
     )
 
 
+@app.get("/details", response_class=HTMLResponse)
+def get_details(request: Request, user: str = Cookie(default=None)):
+    if user:
+        account = chick_shop.get_account_by_username(user)
+        if account:
+            return templates.TemplateResponse(
+                "details.html",
+                {
+                    "request": request,
+                    "user": account.username,
+                    "products": chick_shop.get_product(),
+                },
+            )
+    return templates.TemplateResponse(
+        "shop.html", {"request": request, "products": chick_shop.get_product()}
+    )
+
+
 @app.get("/login", response_class=HTMLResponse)
 def get_login(request: Request):
     return templates.TemplateResponse(

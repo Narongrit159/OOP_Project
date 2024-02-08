@@ -68,6 +68,7 @@ html {
 
 body,
 button,
+
 input {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
@@ -350,7 +351,6 @@ input {
     height: 5px;
     border-radius: .5rem;
 }
-
 
 /*=============== BUTTONS ===============*/
 .button {

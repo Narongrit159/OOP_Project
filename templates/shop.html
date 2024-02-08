@@ -70,8 +70,8 @@
           </div>
           <div class="nav__menu">
             <a class="">Welcome , {{ user }}</a>
-            <a href="/logout" , class="">Logout</a>
           </div>
+          <a href="/logout" , class="">Logout</a>
           {% else %}
           <div class="login__toggle">
             <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
@@ -205,15 +205,17 @@
 
           <div class="shop__items grid">
             {% for product in products %}
-
-            <div class="shop__content">
+            <div
+              class="shop__content"
+              href="{{ request.url_for('get_details') }}"
+            >
               <img
                 src="{{ request.url_for('static', path=product.picture) }}"
                 alt=""
                 class="shop__img"
               />
               <h3 class="shop__title">{{ product.name }}</h3>
-              <span class="shop__subtitle">{{ product.catagory }}</span>
+              <span class="shop__subtitle">{{ product.category }}</span>
 
               <div class="shop__prices">
                 <span class="shop__price">{{ product.price }}</span>
@@ -300,10 +302,6 @@
           </ul>
         </div>
       </div>
-
-      <span class="footer__copy"
-        >&#169; Crypticalcoder. All rights reserved</span
-      >
     </footer>
 
     <!--=============== SCROLL UP ===============-->

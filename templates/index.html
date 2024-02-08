@@ -62,14 +62,14 @@
           </div>
           <div class="nav__menu">
             <a class="">Welcome , {{ user }}</a>
-            <a href="/logout" , class ="">Logout</a>
           </div>
+          
+          <a href="/logout" , class ="logout">Logout</a>
           {% else %}
           <div class="login__toggle" >
             <a class="bx bx-user" href ="{{ request.url_for('get_login') }}"></a>
           </div>
           {% endif %}
-
 
           <div class="nav__toggle" id="nav-toggle">
             <i class="bx bx-grid-alt"></i>
@@ -234,7 +234,7 @@
                   class="new__img"
                 />
                 <h3 class="new__title">{{ product.name }}</h3>
-                <span class="new__subtitle">{{ product.catagory }}</span>
+                <span class="new__subtitle">{{ product.category }}</span>
 
                 <div class="new__prices">
                   <span class="new__price">{{ product.price }}</span>

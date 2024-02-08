@@ -1,6 +1,3 @@
-from typing import Set
-
-
 class Controller:
     def __init__(self):
         self.__account_list = []
