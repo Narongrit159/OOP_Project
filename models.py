@@ -5,8 +5,13 @@ class Controller:
         self.__product_list = []
         self.__history_order_list = []
 
-    def add_account(self, account):
-        self.__account_list.append(account)
+    @property
+    def get_product_list(self):
+        return self.__product_list
+
+    @property
+    def get_promotion_list(self):
+        return self.__promotion_list
 
     def add_account(self, account):
         self.__account_list.append(account)
@@ -14,22 +19,17 @@ class Controller:
     def add_product(self, product):
         self.__product_list.append(product)
 
-    def get_account_by_username(self, username):
+    def add_promotion(self, promotion):
+        self.__product_list.append(promotion)
+
+    def search_account_by_name(self, ame):
+        pass
+
+    def search_account_by_username(self, username):
         for account in self.__account_list:
             if account.username == username:
                 return account
         return None
-
-    def get_product(self):
-        return self.__product_list
-
-    def search_product_by_id(self, id):
-        for product in self.__product_list:
-            if product.product_id == id:
-                return product
-
-    def add_promotion(self, promotion):
-        self.__product_list.append(promotion)
 
     def search_product_by_id(self, id):
         for product in self.__product_list:
@@ -55,16 +55,11 @@ class Controller:
                 product_list.append(product)
             return product
 
-    def add_history_order_list(self, order):
+    def search_history_by_order_id(self, order_id):
+        pass
+
+    def add_history_order(self, order):
         self.__history_order_list.append(order)
-
-    @property
-    def get_product_list(self):
-        return self.__product_list
-
-    @property
-    def get_promotion_list(self):
-        return self.__promotion_list
 
 
 class Account:
