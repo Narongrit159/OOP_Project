@@ -22,7 +22,7 @@ class Controller:
     def add_promotion(self, promotion):
         self.__product_list.append(promotion)
 
-    def search_account_by_name(self, ame):
+    def search_account_by_name(self, name):
         pass
 
     def search_account_by_username(self, username):
