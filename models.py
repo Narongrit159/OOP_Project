@@ -343,3 +343,7 @@ class Payment:
     @property
     def get_payment_type(self):
         return self.__payment_type
+
+
+#######################################
+a = 2
