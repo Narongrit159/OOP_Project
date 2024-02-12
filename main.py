@@ -1,11 +1,8 @@
 # main.py
-from fastapi import FastAPI, Depends, HTTPException, Form, Cookie, status
+from fastapi import FastAPI, Depends, HTTPException, Form, Cookie, status, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from fastapi import Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.security import OAuth2PasswordRequestForm
-from typing import Set
 from models import Account, Product, Controller
 
 app = FastAPI()
