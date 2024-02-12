@@ -15,47 +15,52 @@ class Controller:
         return self.__promotion_list
 
     @property
-    def get_cart_from_account(self, username):  ###################
-        account = self.search_account_by_username()
-        return account.get_cart
-
-    @property
-    def account_list(self):  ###################################
+    def account_list(self):
         return self.__account_list
 
     @property
-    def promotion_list(self):  ################################
+    def promotion_list(self):
         return self.__promotion_list
 
     @property
     def history_order_list(self):
         return self.__history_order_list
 
-    def get_last_histo_id(self):  ################################
+    def get_cart_from_account(self, username):
+        account = self.search_account_by_username(username)
+        return account.get_cart
+
+    def add_product(self, product):
+        self.__product_list.append(product)
+
+    def get_last_histo_id(self):
         histo_id = len(self.__history_order_list) + 1
         return histo_id
 
-    def add_product_to_cart(self, username, product_id, quanity):  ####
+    def add_product_to_cart(self, username, product_id, quanity):
         pass  ##ของเมษา
 
     def add_account(self, account):
         self.__account_list.append(account)
 
-    def remove_product(self, product_id):  ##########################
+    def add_payment(self, payment):
+        self.__payment_list.append(payment)
+
+    def remove_product(self, product_id):
         product = self.search_product_by_id(product_id)
         self.__product_list.remove(product)
 
-    def remove_promotion(self, promotion_id):  #######################
+    def remove_promotion(self, promotion_id):
         promotion = self.search_promotion_by_id(promotion_id)
         self.__promotion_list.remove(promotion)
 
-    def remove_product_from_caart(self, product):  ##################
+    def remove_product_from_caart(self, product):
         pass
 
-    def calculate_order_price(self, username):  ############################ งงสัสๆ
+    def calculate_order_price(self, username):
         pass
 
-    def search_account_by_name(self, name):  ##############################
+    def search_account_by_name(self, name):
         for account in self.__account_list:
             if account.name == name:
                 return account
@@ -90,17 +95,10 @@ class Controller:
                 product_list.append(product)
             return product
 
-    def search_promotion_by_id(self, promotion_id):  #################
+    def search_promotion_by_id(self, promotion_id):
         for promotion in self.__promotion_list:
             if promotion.promotion_id == promotion_id:
                 return promotion
-
-    def search_history_by_order_id(
-        self, order_id
-    ):  ##############ไม่มีในClass diagram ไม่รู้ว่ายังใช้อยู่มั้ย
-        for order in self.__history_order_list:
-            if order.order_id == order_id:
-                return order
 
     def add_history_order(self, order):
         pass
@@ -114,7 +112,7 @@ class Account:
         self.__username = username
         self.__password = password
 
-    def account_type(self):  ##################################
+    def account_type(self):
         pass
 
     def set_username(self, new_username):
@@ -150,19 +148,19 @@ class Custumer_account(Account):
         self.__cart = cart
         self.__address_list = []
 
-    @property  ################################
+    @property
     def get_cart(self):
         return self.__cart
 
-    def add_address_list(
+    def add_address(
         self, name, house_id, soi, sub_distric, distric, province, post_code, tel
-    ):  #############
+    ):
         self.__address_list.append(
             Address(name, house_id, soi, sub_distric, distric, province, post_code, tel)
         )
 
 
-class Address:  #########################เพิ่มใหม่หมด######################################
+class Address:
     def __init__(
         self, name, house_id, soi, sub_distric, distric, province, post_code, tel
     ):
@@ -242,7 +240,7 @@ class Product:
     def price(self):
         return self.__price
 
-    @property  ######################################ไม่มีในClass diagram ไม่เเน่ใจว่าใช้อยู่มั้ย
+    @property
     def category(self):
         return self.__category
 
@@ -284,17 +282,15 @@ class selected_product(Cart):
         self.__quanity = quanity
 
     @property
-    def get_quanity(
-        self,
-    ):  #######################################ในDiagram เขียนว่า get product ไม่เเน่ใจว่าผิดหรือถูก
+    def get_quanity(self):
         return self.__quanity
 
 
 class Promotion:
-    def __init__(self, name, promotion_id, discount_price):
+    def __init__(self, name, promotion_id, discount):
         self.__promotion_name = name
         self.__promotion_id = promotion_id
-        self.__dicount_price = discount_price
+        self.__dicount = discount
 
     @property
     def promotion_name(self):
@@ -305,8 +301,8 @@ class Promotion:
         return self.__promotion_id
 
     @property
-    def discount_pct(self):
-        return self.__dicount_price
+    def discount(self):
+        return self.__dicount
 
 
 class Order:
@@ -335,7 +331,7 @@ class Order:
         return self.__order_id
 
 
-class payment:  #######################################เพิ่มใหม่หมด
+class Payment:
     def __init__(self, payment_id, payment_type):
         self.__payment_id = payment_id
         self.__payment_type = payment_type
@@ -347,8 +343,3 @@ class payment:  #######################################เพิ่มใหม�
     @property
     def get_payment_type(self):
         return self.__payment_type
-
-
-class LoginInfo(Account):  ############ไก่เพิ่มตาต้าาม่ายยได้ยุ่งน้า
-    username: str
-    password: str
