@@ -277,7 +277,7 @@ class Cart:
         return self.__total_price
 
 
-class selected_product(Cart):
+class selected_product(Product):
     def __init__(self, quanity):
         self.__quanity = quanity
 
