@@ -30,15 +30,18 @@ class Controller:
         account = self.search_account_by_username(username)
         return account.get_cart
 
-    def add_product(self, product):
+    def add_product(self, product):################น่าจะเปลี่ยน add_product_by_owner
         self.__product_list.append(product)
 
     def get_last_histo_id(self):
         histo_id = len(self.__history_order_list) + 1
         return histo_id
 
-    def add_product_to_cart(self, username, product_id, quanity):
-        pass  ##ของเมษา
+    def add_product_to_cart(self, username, product_id, quanity):############ต้าทำ
+        account = self.search_account_by_username(username)
+        cart    = account.get_cart
+        product = self.search_product_by_id(product_id)
+        cart.add_product(selected_product(product,quanity))
 
     def add_account(self, account):
         self.__account_list.append(account)
@@ -46,7 +49,7 @@ class Controller:
     def add_payment(self, payment):
         self.__payment_list.append(payment)
 
-    def remove_product(self, product_id):
+    def remove_product(self, product_id):#################น่าจะเปลี่ยนเป็นremove_product_by_owner
         product = self.search_product_by_id(product_id)
         self.__product_list.remove(product)
 
@@ -54,8 +57,16 @@ class Controller:
         promotion = self.search_promotion_by_id(promotion_id)
         self.__promotion_list.remove(promotion)
 
-    def remove_product_from_caart(self, product):
-        pass
+    def remove_product_from_cart(self,username,product_id):
+        account = self.search_account_by_username(username)
+        cart    = account.get_cart
+        cart.remove_selected_product(product_id)
+        
+    def show_cart(self,username):##############################ของกุ๊ก  ต้าทำ
+        account = self.search_account_by_username(username)
+        cart    = account.get_cart
+        return cart
+        
 
     def calculate_order_price(self, username):
         pass
@@ -86,14 +97,14 @@ class Controller:
         for product in self.__product_list:
             if product.category == category:
                 product_list.append(product)
-            return product
+            return product_list
 
     def search_product_by_color(self, color):
         product_list = []
         for product in self.__product_list:
             if product.color == color:
                 product_list.append(product)
-            return product
+            return product_list
 
     def search_promotion_by_id(self, promotion_id):
         for promotion in self.__promotion_list:
@@ -111,6 +122,7 @@ class Account:
         # self.__tel      = tel
         self.__username = username
         self.__password = password
+        
 
     def account_type(self):
         pass
@@ -250,14 +262,10 @@ class Cart:
         self.__total_price = None
         self.__selected_product_list = []
 
-    def add_product(self, product, quanity):  ###################ของเมษา
-        pass
-        # product = controller.search_product_by_id(product_id)
-        # self.__selected_product_list.append(product)
+    def add_product(self, selected_product):  
+        self.__selected_product_list.append(selected_product)
 
-    def remove_selected_product(
-        self, product_id
-    ):  #########################################ยังไม่เเน่ใจ
+    def remove_selected_product(self, product_id):  
         for product in self.__selected_product_list:
             if product.product_id == product_id:
                 self.__selected_product_list.remove(product)
@@ -282,6 +290,10 @@ class selected_product(Product):
         self.__quanity = quanity
 
     @property
+    def get_product(self):
+        return self.__product
+
+    @property
     def get_quanity(self):
         return self.__quanity
 
@@ -289,8 +301,8 @@ class selected_product(Product):
 class Promotion:
     def __init__(self, name, promotion_id, discount):
         self.__promotion_name = name
-        self.__promotion_id = promotion_id
-        self.__dicount = discount
+        self.__promotion_id   = promotion_id
+        self.__dicount        = discount
 
     @property
     def promotion_name(self):
@@ -332,9 +344,10 @@ class Order:
 
 
 class Payment:
-    def __init__(self, payment_id, payment_type):
-        self.__payment_id = payment_id
+    def __init__(self, payment_id, payment_type,discount):
+        self.__payment_id   = payment_id
         self.__payment_type = payment_type
+        self.__discount     = discount
 
     @property
     def get_id(self):
@@ -343,6 +356,10 @@ class Payment:
     @property
     def get_payment_type(self):
         return self.__payment_type
+    
+    @property
+    def get_discount(self):
+        return self.__discount
 
 
 #######################################
