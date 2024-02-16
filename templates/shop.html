@@ -1,90 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!--=============== BOXICONS ===============-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
-    />
-
-    <!--=============== SWIPER CSS ===============-->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', path='css/swiper-bundle.min.css') }}"
-    />
-
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', path='css/style.css') }}"
-    />
-
-    <link
-      rel="stylesheet"
-      class="js-color-style"
-      href="{{ url_for('static', path='css/colors/color-1.css') }}"
-    />
-    <title>CHICK CLOTH SHOP</title>
+    {% include 'head.html' %}
   </head>
   <body>
-    <!--=============== HEADER ===============-->
-    <header class="header" id="header">
-      <nav class="nav container">
-        <a href="{{ request.url_for('get_index') }}" class="nav__logo">
-          <i class="bx bxs-shopping-bags nav__logo-icon"></i> CHICK CLOTH SHOP
-        </a>
-
-        <div class="nav__menu" id="nav-menu">
-          <ul class="nav__list">
-            <li class="nav__item">
-              <a href="{{ request.url_for('get_index') }}" class="nav__link"
-                >Home</a
-              >
-            </li>
-
-            <li class="nav__item">
-              <a
-                href="{{ request.url_for('get_shop') }}"
-                class="nav__link active-link"
-                >Shop</a
-              >
-            </li>
-          </ul>
-
-          <div class="nav__close" id="nav-close">
-            <i class="bx bx-x"></i>
-          </div>
-        </div>
-
-        <div class="nav__btns">
-          <div class="nav__shop" id="cart-shop">
-            <i class="bx bx-shopping-bag"></i>
-          </div>
-
-          {% if user %}
-          <div class="login__toggle">
-            <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
-          </div>
-          <div class="nav__menu">
-            <a class="">Welcome , {{ user }}</a>
-          </div>
-          <a href="/logout" , class="">Logout</a>
-          {% else %}
-          <div class="login__toggle">
-            <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
-          </div>
-          {% endif %}
-
-          <div class="nav__toggle" id="nav-toggle">
-            <i class="bx bx-grid-alt"></i>
-          </div>
-        </div>
-      </nav>
-    </header>
-
+    {% include 'header.html' %}
     <!--=============== MAIN ===============-->
     <main class="main">
       <!--=============== SHOP ===============-->
@@ -235,75 +155,8 @@
         </div>
       </section>
     </main>
-
-    <!--=============== FOOTER ===============-->
-    <footer class="footer section">
-      <div class="footer__container container grid">
-        <!-- FOOTER CONTENT 1 -->
-        <div class="footer__content">
-          <a href="#" class="footer__logo">
-            <i class="bx bxs-shopping-bags footer__logo-icon"></i> e-shopper
-          </a>
-
-          <p class="footer__description">
-            Enjoy the biggest sale <br />
-            of your life.
-          </p>
-
-          <div class="footer__social">
-            <a href="#" class="footer__social-link"
-              ><i class="bx bxl-facebook"></i
-            ></a>
-            <a href="#" class="footer__social-link"
-              ><i class="bx bxl-instagram-alt"></i
-            ></a>
-            <a href="#" class="footer__social-link"
-              ><i class="bx bxl-twitter"></i
-            ></a>
-          </div>
-        </div>
-        <!-- FOOTER CONTENT 2 -->
-        <div class="footer__content">
-          <h3 class="footer__title">About</h3>
-
-          <ul class="footer__links">
-            <li><a href="#" class="footer__link">About Us</a></li>
-            <li><a href="#" class="footer__link">Customer Support</a></li>
-            <li><a href="#" class="footer__link">Support Center</a></li>
-          </ul>
-        </div>
-        <!-- FOOTER CONTENT 3 -->
-        <div class="footer__content">
-          <h3 class="footer__title">Our Services</h3>
-
-          <ul class="footer__links">
-            <li><a href="#" class="footer__link">Shop</a></li>
-            <li><a href="#" class="footer__link">Discounts</a></li>
-            <li><a href="#" class="footer__link">Shipping mode</a></li>
-          </ul>
-        </div>
-        <!-- FOOTER CONTENT 4 -->
-        <div class="footer__content">
-          <h3 class="footer__title">Our Company</h3>
-
-          <ul class="footer__links">
-            <li><a href="#" class="footer__link">Register</a></li>
-            <li><a href="#" class="footer__link">Contact Us</a></li>
-            <li><a href="#" class="footer__link">About Us</a></li>
-          </ul>
-        </div>
-      </div>
-    </footer>
-
-    <!--=============== SCROLL UP ===============-->
-    <a href="#" class="scrollup" id="scroll-up">
-      <i class="bx bx-up-arrow-alt scrollup__icon"></i>
-    </a>
-
-    <!--=============== SWIPER JS ===============-->
+    {% include 'footer.html' %}
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
-
-    <!--=============== JS ===============-->
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
   </body>
 </html>

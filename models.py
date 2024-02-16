@@ -285,9 +285,8 @@ class Cart:
         return self.__total_price
 
 
-class selected_product(Cart):
-    def __init__(self, product,quanity):
-        self.__product = product
+class selected_product(Product):
+    def __init__(self, quanity):
         self.__quanity = quanity
 
     @property
@@ -363,3 +362,5 @@ class Payment:
         return self.__discount
 
 
+#######################################
+a = 2

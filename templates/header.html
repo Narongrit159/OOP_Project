@@ -1,0 +1,50 @@
+<header class="header" id="header">
+  <nav class="nav container">
+    <a href="{{ request.url_for('get_index') }}" class="nav__logo">
+      <i class="bx bxs-shopping-bags nav__logo-icon"></i> CHICK CLOTH SHOP
+    </a>
+
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a href="{{ request.url_for('get_index') }}" class="nav__link"
+            >Home</a
+          >
+        </li>
+
+        <li class="nav__item">
+          <a href="{{ request.url_for('get_shop') }}" class="nav__link">Shop</a>
+        </li>
+      </ul>
+
+      <div class="nav__close" id="nav-close">
+        <i class="bx bx-x"></i>
+      </div>
+    </div>
+
+    <div class="nav__btns">
+      <div class="nav__shop" id="cart-shop">
+        <i class="bx bx-shopping-bag"></i>
+      </div>
+
+      {% if user %}
+      <div class="login__toggle">
+        <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
+      </div>
+      <div class="nav__menu">
+        <a class="">Welcome , {{ user }}</a>
+      </div>
+      <a href="/logout" , class="">Logout</a>
+      {% else %}
+      <div class="login__toggle">
+        <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
+      </div>
+      {% endif %}
+
+      <div class="nav__toggle" id="nav-toggle">
+        <i class="bx bx-grid-alt"></i>
+      </div>
+    </div>
+  </nav>
+</header>
+<title>CHICK CLOTH SHOP</title>
