@@ -23,8 +23,8 @@
     </div>
 
     <div class="nav__btns">
-      <div class="nav__shop" id="cart-shop">
-        <i class="bx bx-shopping-bag"></i>
+      <div class="nav__shop">
+        <i class="bx bx-shopping-bag" id="cart-shop"></i>
       </div>
 
       {% if user %}
@@ -46,5 +46,7 @@
       </div>
     </div>
   </nav>
+
+  {% include 'cart.html' %}
 </header>
 <title>CHICK CLOTH SHOP</title>
