@@ -45,7 +45,7 @@
 
   <div class="cart__prices">
     <span class="cart__prices-item">{{cart.total_quantity}} item</span>
-    <span class="cart__prices-total">${{cart.total_price}}</span>
+    <span class="cart__prices-total">${{'%.2f'|format(cart.total_price)}}</span>
   </div>
   <div class="home__buttons">
     <a href="#" class="button--link button--flex"
@@ -56,46 +56,25 @@
 </div>
 
 <script>
-    document.querySelectorAll(".cart__amount-trash").forEach((button) => {
-      button.addEventListener("click", function () {
-        // ตัวอย่าง: ถ้าสินค้าอยู่ใน <li> หรือ <div> ที่มี class 'cart-item'
-        const productElement = this.closest(".cart__card");
-        const productId = this.getAttribute("data-product-id");
+  document.querySelectorAll(".cart__amount-trash").forEach((button) => {
+    button.addEventListener("click", function () {
+      const productElement = this.closest(".cart__card");
+      const productId = this.getAttribute("data-product-id");
 
-        fetch(`/remove-product/${productId}`, { method: "DELETE" })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data.message);
-            // ลบ element ของสินค้าออกจากหน้า cart
-            productElement.remove();
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      });
+      fetch(`/remove-product/${productId}`, { method: "DELETE" })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data.message);
+          productElement.remove(); // ลบ element นี้ออกจาก DOM
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     });
-
-  // สมมติว่าคุณมีปุ่ม "Add To Cart" ด้วย class 'add-to-cart'
-  document.querySelector('.add-to-cart').addEventListener('click', () => {
-    const productId = /* รหัสของสินค้า */;
-    const quantity = parseInt(document.querySelector('.cart__amount-number').innerText);
-
-    fetch(`/add-to-cart/${productId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ quantity: quantity })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // โค้ดสำหรับการจัดการหลังจากเพิ่มสินค้าลงในตะกร้า
-    })
-    .catch(error => console.error('Error:', error));
   });
 </script>

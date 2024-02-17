@@ -62,7 +62,7 @@
                       <i class="bx bx-heart cart__amount-heart"></i>
                   </div>
 
-                    <a class="button" data-product-id= "{{ product.product_id }}">Add To Cart</a>
+                    <a href="" class="button" data-product-id="{{ product.product_id }}">Add To Cart</a>
               </div>
           </div>
         </div>
@@ -80,6 +80,7 @@
               <!--NEW CONTENT-->
               <div class="new__content swiper-slide">
                 <div class="new__tag">New</div>
+                <a href="{{ url_for('details', product_id=product.product_id) }}">
                 <img
                   src="{{ request.url_for('static', path=product.picture) }}"
                   alt=""
@@ -97,7 +98,8 @@
                   <i class="bx bx-cart-alt new__icon"></i>
                 </a>
               </div>
-              {% endfor %}
+            </a>
+            {% endfor %}
 
             </div>
           </div>
@@ -108,54 +110,87 @@
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
 
-
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // จัดการการคลิกปุ่ม minus
-        document.querySelectorAll('.bx-minus').forEach(button => {
-            button.addEventListener('click', () => {
-                const amountNumber = button.closest('.cart__amount-content').querySelector('.cart__amount-number');
-                let currentValue = parseInt(amountNumber.innerText);
-                if (currentValue > 1) {
-                    amountNumber.innerText = currentValue - 1;
+        // ฟังก์ชันเพื่ออัปเดตจำนวนสินค้า
+        function updateProductAmount(element, isAdding) {
+          const amountNumber = element.closest('.cart__amount-content').querySelector('.cart__amount-number');
+          let currentValue = parseInt(amountNumber.textContent);
+  
+          if (isAdding) {
+              currentValue += 1;
+          } else if (currentValue > 1) {
+              currentValue -= 1;
+          }
+  
+          amountNumber.textContent = currentValue; // อัปเดตค่าใน DOM
+      }
+  
+      // จัดการการคลิกปุ่ม minus
+      document.querySelectorAll('.bx-minus').forEach(button => {
+          button.addEventListener('click', function() {
+              updateProductAmount(this, false);
+          });
+      });
+  
+      // จัดการการคลิกปุ่ม plus
+      document.querySelectorAll('.bx-plus').forEach(button => {
+          button.addEventListener('click', function() {
+              updateProductAmount(this, true);
+          });
+      });
+
+
+        document.querySelectorAll('.button').forEach(button => {
+          button.addEventListener('click', function(e) {
+            e.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+      
+            // รับ product ID จาก data attribute ของปุ่ม
+            const productId = this.getAttribute('data-product-id');
+      
+            // รับจำนวนสินค้าจาก <span>
+            // รับค่าจำนวนสินค้าจาก <span>
+            const quantityElement = document.querySelector('.cart__amount-number');
+            const quantity = quantityElement ? parseInt(quantityElement.textContent.trim()) : 1;
+          
+            console.log(quantityElement);
+            console.log(quantity); // แสดงค่า quantity ใน console
+  
+
+
+            // ส่งคำขอ POST ไปยัง endpoint ของ FastAPI
+            fetch(`/add-to-cart?product_id=${productId}&quantity=${quantity}`, {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'}
+          })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw err; });
+                }
+                return response.json();
+            })
+            .then(data => {
+              console.log('Success:', data);
+              // แสดงข้อความแจ้งเตือนบนหน้าเว็บ
+              const alertElement = document.querySelector('.alert');
+              if (alertElement) {
+                  alertElement.textContent = "สินค้าได้ถูกเพิ่มลงในตะกร้าแล้ว!";
+                  alertElement.style.display = 'block';
+              }
+            })
+              .catch(error => {
+                console.error('Error:', error);
+                // แสดงข้อความแจ้งเตือนข้อผิดพลาด
+                const alertElement = document.querySelector('.alert');
+                if (alertElement) {
+                    alertElement.textContent = "เกิดข้อผิดพลาดในการเพิ่มสินค้าลงในตะกร้า";
+                    alertElement.style.display = 'block';
                 }
             });
         });
-      
-        // จัดการการคลิกปุ่ม plus
-        document.querySelectorAll('.bx-plus').forEach(button => {
-            button.addEventListener('click', () => {
-                const amountNumber = button.closest('.cart__amount-content').querySelector('.cart__amount-number');
-                let currentValue = parseInt(amountNumber.innerText);
-                amountNumber.innerText = currentValue + 1;
-            });
-        });
       });
-
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault(); // ป้องกันการเปลี่ยนหน้า
-                const productId = this.getAttribute('data-product-id');
-                const quantity = 1; // ตั้งค่าจำนวนสินค้า เช่น 1 หรือค่าที่ผู้ใช้เลือก
-    
-                fetch(`/add-to-cart/${productId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ quantity: quantity })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // ตอบกลับหลังจากเพิ่มสินค้าลงในตะกร้า
-                    console.log(data.message);
-                })
-                .catch(error => console.error('Error:', error));
-            });
-        });
     });
-    
+      
     </script>
   </body>
 </html>

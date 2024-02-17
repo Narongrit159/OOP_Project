@@ -23,11 +23,11 @@
     </div>
 
     <div class="nav__btns">
-      <div class="nav__shop">
-        <i class="bx bx-shopping-bag" id="cart-shop"></i>
+      {% if username %}
+      <div class="nav__shop" id="cart-shop">
+        <i class="bx bx-shopping-bag"></i>
       </div>
 
-      {% if username %}
       <div class="login__toggle">
         <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
       </div>
@@ -46,7 +46,6 @@
       </div>
     </div>
   </nav>
-
-  {% include 'cart.html' %}
 </header>
 <title>CHICK CLOTH SHOP</title>
+{% include 'cart.html' %}

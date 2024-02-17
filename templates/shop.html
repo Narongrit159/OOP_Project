@@ -5,7 +5,6 @@
   </head>
   <body>
     {% include 'header.html' %}
-    {% include 'cart.html' %}
     <!--=============== MAIN ===============-->
     <main class="main">
       <!--=============== SHOP ===============-->
@@ -125,7 +124,7 @@
           </div>
 
           <div class="shop__items grid">
-            {% for product in products %}
+            {% for product in product_list %}
               <div class="shop__content">
                 <a href="{{ url_for('details', product_id=product.product_id) }}">
                <img

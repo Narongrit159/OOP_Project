@@ -5,141 +5,9 @@
   </head>
   <body>
     {% include 'header.html' %}
-    {% include 'cart.html' %}
     <!--=============== MAIN ===============-->
     <main class="main">
-      <!--=============== HOME ===============-->
-      <section class="home container">
-        <div class="swiper home-swiper">
-          <div class="swiper-wrapper">
-            <!-- HOME SWIPER 1-->
-            <section class="swiper-slide">
-              <div class="home__content grid">
-                <div class="home__group">
-                  <img
-                    src="{{ url_for('static', path='img/slide-2.png') }}"
-                    alt=""
-                    class="home__img"
-                  />
-                  <div class="home__indicator"></div>
-
-                  <div class="home__details-img">
-                    <h4 class="home__details-title">The "Cardigan"</h4>
-                    <span class="home__details-subtitle">Woolen</span>
-                  </div>
-                </div>
-
-                <div class="home__data">
-                  <h3 class="home__subtitle">#1 TRENDING ITEM</h3>
-                  <h1 class="home__title">
-                    ORIGINAL <br />
-                    IS NEVER <br />
-                    FINISHED!!
-                  </h1>
-                  <p class="home__description">
-                    This is a place of hope, meaning and purpose. Visit and
-                    become a part of something bigger - a movement that is
-                    changing lives.
-                  </p>
-
-                  <div class="home__buttons">
-                    <a href="#" class="button">Buy Now</a>
-                    <a href="#" class="button--link button--flex"
-                      >View Details
-                      <i class="bx bx-right-arrow-alt button__icon"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- HOME SWIPER 2-->
-            <section class="swiper-slide">
-              <div class="home__content grid">
-                <div class="home__group">
-                  <img
-                    src="{{ url_for('static', path='img/slide-3.png') }}"
-                    alt=""
-                    class="home__img"
-                  />
-                  <div class="home__indicator"></div>
-
-                  <div class="home__details-img">
-                    <h4 class="home__details-title">Jqueezy</h4>
-                    <span class="home__details-subtitle">Ski Suit</span>
-                  </div>
-                </div>
-
-                <div class="home__data">
-                  <h3 class="home__subtitle">#2 top Best duo</h3>
-                  <h1 class="home__title">
-                    FALL <br />
-                    WINTER <br />
-                    2022
-                  </h1>
-                  <p class="home__description">
-                    A specialist label creating luxury essentials. Ethically
-                    crafted with an unwavering commitment to exceptional
-                    quality.
-                  </p>
-
-                  <div class="home__buttons">
-                    <a href="#" class="button">Buy Now</a>
-                    <a href="#" class="button--link button--flex"
-                      >View Details
-                      <i class="bx bx-right-arrow-alt button__icon"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- HOME SWIPER 3-->
-            <section class="swiper-slide">
-              <div class="home__content grid">
-                <div class="home__group">
-                  <img
-                    src="{{ url_for('static', path='img/slide-1.png') }}"
-                    alt=""
-                    class="home__img"
-                  />
-                  <div class="home__indicator"></div>
-
-                  <div class="home__details-img">
-                    <h4 class="home__details-title">Jurry</h4>
-                    <span class="home__details-subtitle">Zipper</span>
-                  </div>
-                </div>
-
-                <div class="home__data">
-                  <h3 class="home__subtitle">#3 TRENDING ITEM</h3>
-                  <h1 class="home__title">
-                    SALE 20% <br />
-                    OFF ON <br />
-                    EVERYTHING
-                  </h1>
-                  <p class="home__description">
-                    A specialist label creating luxury essentials. Ethically
-                    crafted with an unwavering commitment to exceptional
-                    quality.
-                  </p>
-
-                  <div class="home__buttons">
-                    <a href="#" class="button">Buy Now</a>
-                    <a href="#" class="button--link button--flex"
-                      >View Details
-                      <i class="bx bx-right-arrow-alt button__icon"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-
-          <div class="swiper-pagination"></div>
-        </div>
-      </section>
-
+      {% include 'home_swiper.html' %}
       <!--=============== NEW ARRIVALS ===============-->
       <section class="new section">
         <h2 class="section__title">New Arrivals</h2>
@@ -148,7 +16,7 @@
           <div class="swiper new-swiper">
             <div class="swiper-wrapper">
 
-              {% for product in products %}
+              {% for product in product_list %}
               <!--NEW CONTENT-->
               <div class="new__content swiper-slide">
                 <div class="new__tag">New</div>
@@ -178,46 +46,9 @@
         </div>
       </section>
 
-      <!--=============== STEPS ===============-->
-      <section class="steps section container">
-        <div class="steps__bg">
-          <h2 class="section__title">
-            How to order products <br />
-            from CHICK CLOTH SHOP
-          </h2>
-
-          <div class="steps__container grid">
-            <!-- STEP CARD 1 -->
-            <div class="steps__card">
-              <div class="steps__card-number">01</div>
-              <h3 class="steps__card-title">Choose Products</h3>
-              <p class="steps__card-description">
-                We have several varieties products you can choose from.
-              </p>
-            </div>
-            <!-- STEP CARD 2 -->
-            <div class="steps__card">
-              <div class="steps__card-number">02</div>
-              <h3 class="steps__card-title">Place an order</h3>
-              <p class="steps__card-description">
-                Once your order is set, we move to the next step which is the
-                shipping.
-              </p>
-            </div>
-            <!-- STEP CARD 3 -->
-            <div class="steps__card">
-              <div class="steps__card-number">03</div>
-              <h3 class="steps__card-title">Get order delivered</h3>
-              <p class="steps__card-description">
-                Our delivery process is easy, you receive the order direct to
-                your home.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {% include 'how_to_order.html' %}
     {% include 'footer.html' %}
+    
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
   </body>
