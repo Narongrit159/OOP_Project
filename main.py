@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException, Form, Cookie, status, Reque
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from models import Account, Product, Controller
+from models import Account, Product, Controller, Custumer_account, Owner_account, Cart
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static", html=True), name="static")
@@ -13,7 +13,20 @@ chick_shop = Controller()
 
 
 def add_new_product():
-    chick_shop.add_account(Account("chicken", "0000"))
+    chicken_account = Custumer_account(
+        "CHICKEN", "0620538988", "chicken", "0000", cart=Cart()
+    )
+    tar_account = Custumer_account("TAR", "0620538988", "tar", "0000", cart=Cart())
+    maysa_account = Custumer_account(
+        "MAYSA", "0620538988", "maysa", "0000", cart=Cart()
+    )
+    admin_account = Owner_account("ADMIN", "0", "admin", "0000", "0278645215")
+
+    chick_shop.add_account(chicken_account)
+    chick_shop.add_account(tar_account)
+    chick_shop.add_account(maysa_account)
+    chick_shop.add_account(admin_account)
+
     chick_shop.add_product(
         Product(
             1,
@@ -150,6 +163,10 @@ def add_new_product():
         )
     )
 
+    chick_shop.add_product_to_cart("chicken", 3, 2)
+    chick_shop.add_product_to_cart("chicken", 2, 2)
+    chick_shop.add_product_to_cart("chicken", 1, 2)
+
 
 add_new_product()
 
@@ -161,18 +178,19 @@ def post_home(
     password: str = Form(...),
 ):
 
-    user = chick_shop.search_account_by_username(username)
+    account = chick_shop.search_account_by_username(username)
 
-    if user and user.password == password:
+    if account and account.password == password:
         response = templates.TemplateResponse(
             "index.html",
             {
                 "request": request,
-                "user": user.username,
+                "user": account.name,
                 "products": chick_shop.get_product_list,
+                "cart": chick_shop.show_cart(username),
             },
         )
-        response.set_cookie("user", user.username)
+        response.set_cookie("user", account.name)
         return response
     else:
         return templates.TemplateResponse(
@@ -185,16 +203,17 @@ def post_home(
 
 
 @app.get("/", response_class=HTMLResponse)
-def get_index(request: Request, user: str = Cookie(default=None)):
-    if user:
-        account = chick_shop.search_account_by_username(user)
+def get_index(request: Request, username: str = Cookie(default=None)):
+    if username:
+        account = chick_shop.search_account_by_username(username)
         if account:
             return templates.TemplateResponse(
                 "index.html",
                 {
                     "request": request,
-                    "user": account.username,
+                    "user": account.name,
                     "products": chick_shop.get_product_list,
+                    "cart": chick_shop.show_cart(username),
                 },
             )
 
@@ -204,16 +223,17 @@ def get_index(request: Request, user: str = Cookie(default=None)):
 
 
 @app.get("/shop", response_class=HTMLResponse)
-def get_shop(request: Request, user: str = Cookie(default=None)):
-    if user:
-        account = chick_shop.search_account_by_username(user)
+def get_shop(request: Request, username: str = Cookie(default=None)):
+    if username:
+        account = chick_shop.search_account_by_username(username)
         if account:
             return templates.TemplateResponse(
                 "shop.html",
                 {
                     "request": request,
-                    "user": account.username,
+                    "user": account.name,
                     "products": chick_shop.get_product_list,
+                    "cart": chick_shop.show_cart(username),
                 },
             )
     return templates.TemplateResponse(
@@ -223,7 +243,7 @@ def get_shop(request: Request, user: str = Cookie(default=None)):
 
 @app.get("/details/{product_id}")
 def details(request: Request, product_id: int):
-    user = request.cookies.get("user")
+    username = request.cookies.get("user")
 
     product = chick_shop.search_product_by_id(product_id)
     product_list = chick_shop.get_product_list
@@ -231,14 +251,14 @@ def details(request: Request, product_id: int):
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
 
-    if user:
-        account = chick_shop.search_account_by_username(user)
+    if username:
+        account = chick_shop.search_account_by_username(username)
         if account:
             return templates.TemplateResponse(
                 "details.html",
                 {
                     "request": request,
-                    "user": account.username,
+                    "user": account.name,
                     "product": product,
                     "product_list": product_list,
                 },

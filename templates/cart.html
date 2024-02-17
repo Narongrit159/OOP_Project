@@ -5,18 +5,19 @@
   <h2 class="cart__title-center">My Cart</h2>
 
   <div class="cart__container">
+    {% for cart_item in cart.show_selected_product_list %}
     <article class="cart__card">
       <div class="cart__box">
         <img
-          src="{{ url_for('static', path='img/slide-2.png') }}"
+          src="{{ request.url_for('static', path=cart_item.get_product.picture) }}"
           alt=""
           class="cart__img"
         />
       </div>
 
       <div class="cart__details">
-        <h3 class="cart__title">Windbreaker</h3>
-        <span class="cart__price">$12</span>
+        <h3 class="cart__title">{{cart_item.get_product.name}}</h3>
+        <span class="cart__price">${{cart_item.get_product.price}}</span>
 
         <div class="cart__amount">
           <div class="cart__amount-content">
@@ -24,7 +25,7 @@
               <i class="bx bx-minus"></i>
             </span>
 
-            <span class="cart__amount-number">1</span>
+            <span class="cart__amount-number">{{cart_item.get_quanity}}</span>
 
             <span class="cart__amount-box">
               <i class="bx bx-plus"></i>
@@ -36,72 +37,12 @@
       </div>
     </article>
 
-    <article class="cart__card">
-      <div class="cart__box">
-        <img
-          src="{{ url_for('static', path='img/slide-2.png') }}"
-          alt=""
-          class="cart__img"
-        />
-      </div>
-
-      <div class="cart__details">
-        <h3 class="cart__title">Cardigan Hoodie</h3>
-        <span class="cart__price">$16</span>
-
-        <div class="cart__amount">
-          <div class="cart__amount-content">
-            <span class="cart__amount-box">
-              <i class="bx bx-minus"></i>
-            </span>
-
-            <span class="cart__amount-number">1</span>
-
-            <span class="cart__amount-box">
-              <i class="bx bx-plus"></i>
-            </span>
-          </div>
-
-          <i class="bx bx-trash-alt cart__amount-trash"></i>
-        </div>
-      </div>
-    </article>
-
-    <article class="cart__card">
-      <div class="cart__box">
-        <img
-          src="{{ url_for('static', path='img/slide-2.png') }}"
-          alt=""
-          class="cart__img"
-        />
-      </div>
-
-      <div class="cart__details">
-        <h3 class="cart__title">Cartoon</h3>
-        <span class="cart__price">$10</span>
-
-        <div class="cart__amount">
-          <div class="cart__amount-content">
-            <span class="cart__amount-box">
-              <i class="bx bx-minus"></i>
-            </span>
-
-            <span class="cart__amount-number">1</span>
-
-            <span class="cart__amount-box">
-              <i class="bx bx-plus"></i>
-            </span>
-          </div>
-
-          <i class="bx bx-trash-alt cart__amount-trash"></i>
-        </div>
-      </div>
-    </article>
+    {% endfor %}
   </div>
 
   <div class="cart__prices">
     <span class="cart__prices-item">3 item</span>
-    <span class="cart__prices-total">$38</span>
+    <span class="cart__prices-total">${{cart.get_total_price()}}</span>
   </div>
 
   <div class="home__buttons">
