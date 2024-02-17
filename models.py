@@ -268,23 +268,29 @@ class Cart:
         self.__selected_product_list.append(selected_product)
 
     def remove_selected_product(self, product_id):
-        for product in self.__selected_product_list:
-            if product.product_id == product_id:
-                self.__selected_product_list.remove(product)
+        for selected_product in self.__selected_product_list:
+            if selected_product.product.product_id == product_id:
+                self.__selected_product_list.remove(selected_product)
 
-    def get_total_price(self):
-        for product in self.__selected_product_list:
-            for product_price in product.price:
-                self.__total_price += product_price
-                return self.__total_price
+    @property
+    def total_price(self):
+        for selected_product in self.__selected_product_list:
+            self.__total_price += (
+                selected_product.product.price * selected_product.quanity
+            )
+
+        return self.__total_price
+
+    @property
+    def total_quantity(self):
+        total_quantity = 0
+        for selected_product in self.__selected_product_list:
+            total_quantity += selected_product.quanity
+        return total_quantity
 
     @property
     def show_selected_product_list(self):
         return self.__selected_product_list
-
-    @property
-    def show_total_price(self):
-        return self.__total_price
 
 
 class Selected_product:
@@ -293,11 +299,11 @@ class Selected_product:
         self.__quanity = quanity
 
     @property
-    def get_product(self):
+    def product(self):
         return self.__product
 
     @property
-    def get_quanity(self):
+    def quanity(self):
         return self.__quanity
 
 

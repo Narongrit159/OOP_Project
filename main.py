@@ -166,6 +166,9 @@ def add_new_product():
     chick_shop.add_product_to_cart("chicken", 3, 2)
     chick_shop.add_product_to_cart("chicken", 2, 2)
     chick_shop.add_product_to_cart("chicken", 1, 2)
+    chick_shop.add_product_to_cart("chicken", 6, 2)
+    chick_shop.add_product_to_cart("chicken", 5, 2)
+    chick_shop.add_product_to_cart("chicken", 4, 2)
 
 
 add_new_product()
@@ -185,12 +188,12 @@ def post_home(
             "index.html",
             {
                 "request": request,
-                "user": account.name,
+                "username": account.username,
                 "products": chick_shop.get_product_list,
                 "cart": chick_shop.show_cart(username),
             },
         )
-        response.set_cookie("user", account.name)
+        response.set_cookie("username", account.username)
         return response
     else:
         return templates.TemplateResponse(
@@ -211,14 +214,15 @@ def get_index(request: Request, username: str = Cookie(default=None)):
                 "index.html",
                 {
                     "request": request,
-                    "user": account.name,
+                    "username": account.username,
                     "products": chick_shop.get_product_list,
                     "cart": chick_shop.show_cart(username),
                 },
             )
 
     return templates.TemplateResponse(
-        "index.html", {"request": request, "products": chick_shop.get_product_list}
+        "index.html",
+        {"request": request, "products": chick_shop.get_product_list},
     )
 
 
@@ -231,20 +235,21 @@ def get_shop(request: Request, username: str = Cookie(default=None)):
                 "shop.html",
                 {
                     "request": request,
-                    "user": account.name,
+                    "username": account.username,
                     "products": chick_shop.get_product_list,
                     "cart": chick_shop.show_cart(username),
                 },
             )
     return templates.TemplateResponse(
-        "shop.html", {"request": request, "products": chick_shop.get_product_list}
+        "shop.html",
+        {"request": request, "products": chick_shop.get_product_list},
     )
 
 
 @app.get("/details/{product_id}")
 def details(request: Request, product_id: int):
-    username = request.cookies.get("user")
 
+    username = request.cookies.get("username")
     product = chick_shop.search_product_by_id(product_id)
     product_list = chick_shop.get_product_list
 
@@ -258,22 +263,28 @@ def details(request: Request, product_id: int):
                 "details.html",
                 {
                     "request": request,
-                    "user": account.name,
+                    "username": account.username,
                     "product": product,
                     "product_list": product_list,
+                    "cart": chick_shop.show_cart(username),
                 },
             )
 
     return templates.TemplateResponse(
         "details.html",
-        {"request": request, "product": product, "product_list": product_list},
+        {
+            "request": request,
+            "product": product,
+            "product_list": product_list,
+        },
     )
 
 
 @app.get("/login", response_class=HTMLResponse)
 def get_login(request: Request):
     return templates.TemplateResponse(
-        "login.html", {"request": request, "products": chick_shop.get_product_list}
+        "login.html",
+        {"request": request, "products": chick_shop.get_product_list},
     )
 
 
@@ -281,5 +292,21 @@ def get_login(request: Request):
 def logout(request: Request):
 
     response = RedirectResponse(url="/")
-    response.delete_cookie("user")
+    response.delete_cookie("username")
     return response
+
+
+@app.delete("/remove-product/{product_id}")
+async def remove_product(product_id: int, request: Request):
+    username = request.cookies.get("username")
+    try:
+        chick_shop.remove_product_from_cart(username, product_id)
+        return {"message": "Product removed successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@app.post("/add-to-cart/{product_id}")
+async def add_to_cart(product_id: int, quantity: int):
+    print(product_id, quantity)
+    return {"message": "Product added to cart successfully"}

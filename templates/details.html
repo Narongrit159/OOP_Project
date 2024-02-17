@@ -62,7 +62,7 @@
                       <i class="bx bx-heart cart__amount-heart"></i>
                   </div>
 
-                  <a href="#" class="button">Add To Cart</a>
+                    <a class="button" data-product-id= "{{ product.product_id }}">Add To Cart</a>
               </div>
           </div>
         </div>
@@ -107,6 +107,56 @@
     {% include 'footer.html' %}
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
+
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // จัดการการคลิกปุ่ม minus
+        document.querySelectorAll('.bx-minus').forEach(button => {
+            button.addEventListener('click', () => {
+                const amountNumber = button.closest('.cart__amount-content').querySelector('.cart__amount-number');
+                let currentValue = parseInt(amountNumber.innerText);
+                if (currentValue > 1) {
+                    amountNumber.innerText = currentValue - 1;
+                }
+            });
+        });
+      
+        // จัดการการคลิกปุ่ม plus
+        document.querySelectorAll('.bx-plus').forEach(button => {
+            button.addEventListener('click', () => {
+                const amountNumber = button.closest('.cart__amount-content').querySelector('.cart__amount-number');
+                let currentValue = parseInt(amountNumber.innerText);
+                amountNumber.innerText = currentValue + 1;
+            });
+        });
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); // ป้องกันการเปลี่ยนหน้า
+                const productId = this.getAttribute('data-product-id');
+                const quantity = 1; // ตั้งค่าจำนวนสินค้า เช่น 1 หรือค่าที่ผู้ใช้เลือก
+    
+                fetch(`/add-to-cart/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ quantity: quantity })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // ตอบกลับหลังจากเพิ่มสินค้าลงในตะกร้า
+                    console.log(data.message);
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+    
+    </script>
   </body>
 </html>
 

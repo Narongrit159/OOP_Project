@@ -27,12 +27,12 @@
         <i class="bx bx-shopping-bag" id="cart-shop"></i>
       </div>
 
-      {% if user %}
+      {% if username %}
       <div class="login__toggle">
         <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
       </div>
       <div class="nav__menu">
-        <a class="">Welcome , {{ user }}</a>
+        <a class="">Welcome , {{ username }}</a>
       </div>
       <a href="/logout" , class="">Logout</a>
       {% else %}

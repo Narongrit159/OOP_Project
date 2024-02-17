@@ -4,20 +4,21 @@
 
   <h2 class="cart__title-center">My Cart</h2>
 
+  {% if username %}
   <div class="cart__container">
     {% for cart_item in cart.show_selected_product_list %}
     <article class="cart__card">
       <div class="cart__box">
         <img
-          src="{{ request.url_for('static', path=cart_item.get_product.picture) }}"
+          src="{{ request.url_for('static', path=cart_item.product.picture) }}"
           alt=""
           class="cart__img"
         />
       </div>
 
       <div class="cart__details">
-        <h3 class="cart__title">{{cart_item.get_product.name}}</h3>
-        <span class="cart__price">${{cart_item.get_product.price}}</span>
+        <h3 class="cart__title">{{cart_item.product.name}}</h3>
+        <span class="cart__price">${{cart_item.product.price}}</span>
 
         <div class="cart__amount">
           <div class="cart__amount-content">
@@ -25,29 +26,76 @@
               <i class="bx bx-minus"></i>
             </span>
 
-            <span class="cart__amount-number">{{cart_item.get_quanity}}</span>
+            <span class="cart__amount-number">{{cart_item.quanity}}</span>
 
             <span class="cart__amount-box">
               <i class="bx bx-plus"></i>
             </span>
           </div>
 
-          <i class="bx bx-trash-alt cart__amount-trash"></i>
+          <i
+            class="bx bx-trash-alt cart__amount-trash"
+            data-product-id="{{cart_item.product.product_id}}"
+          ></i>
         </div>
       </div>
     </article>
-
     {% endfor %}
   </div>
 
   <div class="cart__prices">
-    <span class="cart__prices-item">3 item</span>
-    <span class="cart__prices-total">${{cart.get_total_price()}}</span>
+    <span class="cart__prices-item">{{cart.total_quantity}} item</span>
+    <span class="cart__prices-total">${{cart.total_price}}</span>
   </div>
-
   <div class="home__buttons">
     <a href="#" class="button--link button--flex"
       >Check Out Order <i class="bx bx-right-arrow-alt button__icon"></i
     ></a>
   </div>
+  {% endif %}
 </div>
+
+<script>
+    document.querySelectorAll(".cart__amount-trash").forEach((button) => {
+      button.addEventListener("click", function () {
+        // ตัวอย่าง: ถ้าสินค้าอยู่ใน <li> หรือ <div> ที่มี class 'cart-item'
+        const productElement = this.closest(".cart__card");
+        const productId = this.getAttribute("data-product-id");
+
+        fetch(`/remove-product/${productId}`, { method: "DELETE" })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data.message);
+            // ลบ element ของสินค้าออกจากหน้า cart
+            productElement.remove();
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
+    });
+
+  // สมมติว่าคุณมีปุ่ม "Add To Cart" ด้วย class 'add-to-cart'
+  document.querySelector('.add-to-cart').addEventListener('click', () => {
+    const productId = /* รหัสของสินค้า */;
+    const quantity = parseInt(document.querySelector('.cart__amount-number').innerText);
+
+    fetch(`/add-to-cart/${productId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quantity: quantity })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // โค้ดสำหรับการจัดการหลังจากเพิ่มสินค้าลงในตะกร้า
+    })
+    .catch(error => console.error('Error:', error));
+  });
+</script>
