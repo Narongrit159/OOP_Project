@@ -12,7 +12,7 @@ templates = Jinja2Templates(directory="templates")
 chick_shop = Controller()
 
 
-def add_new_product():
+def create_new_instances():
     chicken_account = Custumer_account(
         "CHICKEN", "0620538988", "chicken", "0000", cart=Cart()
     )
@@ -27,7 +27,7 @@ def add_new_product():
     chick_shop.add_account(maysa_account)
     chick_shop.add_account(admin_account)
 
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             1,
             "Windbreaker Jacket",
@@ -171,7 +171,7 @@ def add_new_product():
     chick_shop.add_product_to_cart("chicken", 4, 2)
 
 
-add_new_product()
+create_new_instances()
 
 
 ######################CHECK LOGIN######################
