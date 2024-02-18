@@ -29,15 +29,24 @@
       </div>
 
       <div class="login__toggle">
-        <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
+        <a
+          class="bx bx-user nav__logout"
+          href="{{ request.url_for('get_login') }}"
+        ></a>
       </div>
+
       <div class="nav__menu">
         <a class="">Welcome , {{ username }}</a>
       </div>
-      <a href="/logout" , class="">Logout</a>
+
+      <a href="/logout" , class="nav__logout">Logout</a>
+
       {% else %}
       <div class="login__toggle">
-        <a class="bx bx-user" href="{{ request.url_for('get_login') }}"></a>
+        <a
+          class="bx bx-user nav__shop"
+          href="{{ request.url_for('get_login') }}"
+        ></a>
       </div>
       {% endif %}
 
@@ -48,4 +57,3 @@
   </nav>
 </header>
 <title>CHICK CLOTH SHOP</title>
-

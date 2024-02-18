@@ -165,6 +165,9 @@ input {
     align-items: center;
     column-gap: 3rem;
 }
+.nav__logout{
+    color: var(--first-color);
+}
 
 .nav__close,
 .login__toggle,
@@ -450,6 +453,7 @@ input {
     display: block;
     font-size: var(--small-font-size);
     margin-bottom: var(--mb-1);
+    color: var(--title-color);
 }
 
 .new__prices {
