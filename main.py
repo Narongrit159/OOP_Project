@@ -38,7 +38,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             2,
             "Air Jordan Zipper",
@@ -50,7 +50,7 @@ def add_new_product():
         )
     )
 
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             3,
             "Fur Jacket",
@@ -61,7 +61,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             4,
             "Fleece Jacket",
@@ -72,7 +72,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             5,
             "Nike Hoodie",
@@ -83,7 +83,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             6,
             "Fleece Jacket",
@@ -95,7 +95,7 @@ def add_new_product():
         )
     )
 
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             7,
             "Windbreaker Jacket",
@@ -106,7 +106,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             8,
             "Air Jordan Zipper",
@@ -118,7 +118,7 @@ def add_new_product():
         )
     )
 
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             9,
             "Fur Jacket",
@@ -129,7 +129,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             10,
             "Fleece Jacket",
@@ -140,7 +140,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             11,
             "Nike Hoodie",
@@ -151,7 +151,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             12,
             "Fleece Jacket",
@@ -234,7 +234,6 @@ def get_shop(request: Request, username: str = Cookie(default=None)):
 @app.get("/details/{product_id}")
 def details(request: Request, product_id: int, username: str = Cookie(default=None)):
     product = chick_shop.search_product_by_id(product_id)
-
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
 
@@ -246,9 +245,16 @@ def details(request: Request, product_id: int, username: str = Cookie(default=No
 @app.delete("/remove-product/{product_id}")
 async def remove_product(product_id: int, request: Request):
     username = request.cookies.get("username")
+    cart = chick_shop.show_cart(username)
     try:
         chick_shop.remove_product_from_cart(username, product_id)
-        return {"message": "Product removed successfully"}
+        total_price = cart.total_price
+        quantity = cart.total_quantity
+        return {
+            "message": "Product removed successfully",
+            "total_price": total_price,
+            "quantity": quantity,
+        }
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
 
@@ -257,7 +263,7 @@ async def remove_product(product_id: int, request: Request):
 async def add_to_cart(
     product_id: int, quantity: int, username: str = Cookie(default=None)
 ):
-    print(product_id, quantity)
+    # print(product_id, quantity)
     chick_shop.add_product_to_cart(username, product_id, quantity)
     return {"message": "Product added to cart successfully"}
 

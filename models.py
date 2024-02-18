@@ -1,3 +1,6 @@
+import math
+
+
 class Controller:
     def __init__(self):
         self.__payment_list = []
@@ -30,14 +33,14 @@ class Controller:
         account = self.search_account_by_username(username)
         return account.get_cart
 
-    def add_product(self, product):  ################น่าจะเปลี่ยน add_product_by_owner
-        self.__product_list.append(product)
-
-    def get_last_histo_id(self):
+    def get_last_history_id(self):
         histo_id = len(self.__history_order_list) + 1
         return histo_id
 
-    def add_product_to_cart(self, username, product_id, quanity):  ############ต้าทำ
+    def add_new_product(self, product):
+        self.__product_list.append(product)
+
+    def add_product_to_cart(self, username, product_id, quanity):
         account = self.search_account_by_username(username)
         cart = account.get_cart
         product = self.search_product_by_id(product_id)
@@ -49,9 +52,11 @@ class Controller:
     def add_payment(self, payment):
         self.__payment_list.append(payment)
 
-    def remove_product(
-        self, product_id
-    ):  #################น่าจะเปลี่ยนเป็นremove_product_by_owner
+    def add_history_order(self, order):
+        pass
+        # self.__history_order_list.append(Order())
+
+    def remove_product(self, product_id):
         product = self.search_product_by_id(product_id)
         self.__product_list.remove(product)
 
@@ -68,9 +73,6 @@ class Controller:
         account = self.search_account_by_username(username)
         cart = account.get_cart
         return cart
-
-    def calculate_order_price(self, username):
-        pass
 
     def search_account_by_name(self, name):
         for account in self.__account_list:
@@ -112,9 +114,8 @@ class Controller:
             if promotion.promotion_id == promotion_id:
                 return promotion
 
-    def add_history_order(self, order):
+    def calculate_order_price(self, username):
         pass
-        # self.__history_order_list.append(Order())
 
 
 class Account:
@@ -123,15 +124,6 @@ class Account:
         self.__tel = tel
         self.__username = username
         self.__password = password
-
-    def account_type(self):
-        pass
-
-    def set_username(self, new_username):
-        self.__username == new_username
-
-    def self_password(self, new_password):
-        self.__password == new_password
 
     @property
     def name(self):
@@ -144,6 +136,19 @@ class Account:
     @property
     def password(self):
         return self.__password
+
+    @property
+    def tel(self):
+        return self.__tel
+
+    def account_type(self):
+        pass
+
+    def set_username(self, new_username):
+        self.__username == new_username
+
+    def self_password(self, new_password):
+        self.__password == new_password
 
 
 class Owner_account(Account):
@@ -265,7 +270,14 @@ class Cart:
         self.__selected_product_list = []
 
     def add_product(self, selected_product):
-        self.__selected_product_list.append(selected_product)
+        product_alredy_incart = False
+        for item in self.__selected_product_list:
+            if selected_product.product.product_id == item.product.product_id:
+                item.edit_quanity(selected_product.quanity)
+                print(item.quanity)
+                product_alredy_incart = True
+        if product_alredy_incart == False:
+            self.__selected_product_list.append(selected_product)
 
     def remove_selected_product(self, product_id):
         for selected_product in self.__selected_product_list:
@@ -274,12 +286,14 @@ class Cart:
 
     @property
     def total_price(self):
+        total_price = 0
         for selected_product in self.__selected_product_list:
-            self.__total_price += (
-                selected_product.product.price * selected_product.quanity
-            )
+            total_price += selected_product.product.price * selected_product.quanity
 
-        return self.__total_price
+        self.__total_price = total_price
+
+        total_price = round(total_price, 2)
+        return total_price
 
     @property
     def total_quantity(self):
@@ -305,6 +319,9 @@ class Selected_product:
     @property
     def quanity(self):
         return self.__quanity
+
+    def edit_quanity(self, other):
+        self.__quanity += other
 
 
 class Promotion:

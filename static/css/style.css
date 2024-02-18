@@ -649,6 +649,7 @@ input {
     display: block;
     font-size: var(--small-font-size);
     margin-bottom: var(--mb-1);
+    color: var(--title-color);
 }
 
 .shop__prices {
