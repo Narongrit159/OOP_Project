@@ -27,7 +27,7 @@ def add_new_product():
     chick_shop.add_account(maysa_account)
     chick_shop.add_account(admin_account)
 
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             1,
             "Windbreaker Jacket",
@@ -38,7 +38,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             2,
             "Air Jordan Zipper",
@@ -50,7 +50,7 @@ def add_new_product():
         )
     )
 
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             3,
             "Fur Jacket",
@@ -61,7 +61,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             4,
             "Fleece Jacket",
@@ -72,7 +72,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             5,
             "Nike Hoodie",
@@ -83,7 +83,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             6,
             "Fleece Jacket",
@@ -95,7 +95,7 @@ def add_new_product():
         )
     )
 
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             7,
             "Windbreaker Jacket",
@@ -106,7 +106,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             8,
             "Air Jordan Zipper",
@@ -118,7 +118,7 @@ def add_new_product():
         )
     )
 
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             9,
             "Fur Jacket",
@@ -129,7 +129,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             10,
             "Fleece Jacket",
@@ -140,7 +140,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             11,
             "Nike Hoodie",
@@ -151,7 +151,7 @@ def add_new_product():
             10,
         )
     )
-    chick_shop.add_product(
+    chick_shop.add_new_product(
         Product(
             12,
             "Fleece Jacket",
@@ -258,7 +258,7 @@ async def add_to_cart(
     product_id: int, quantity: int, username: str = Cookie(default=None)
 ):
     print(product_id, quantity)
-    chick_shop.add_product_to_cart(username, product_id, quantity)
+    chick_shop.add_new_product_to_cart(username, product_id, quantity)
     return {"message": "Product added to cart successfully"}
 
 
