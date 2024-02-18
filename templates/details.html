@@ -45,13 +45,13 @@
                           <p>Light Gray solid Top, has a boat neck, 3/4 sleeves</p>
                       </div>
                   </div>
-
+                  <h3 class="description__title">Stock : {{product.quanity}} piece </h3>
                   <div class="cart__amount">
                       <div class="cart__amount-content">
                           <span class="cart__amount-box">
                               <i class="bx bx-minus"></i>
                           </span>
-
+                          
                           <span class="cart__amount-number">1</span>
 
                           <span class="cart__amount-box">
@@ -61,7 +61,8 @@
 
                       <i class="bx bx-heart cart__amount-heart"></i>
                   </div>
-
+                  <h3 class="description__title"><a class = "alert" ></a></h3>
+                  
                     <a href="" class="button" data-product-id="{{ product.product_id }}">Add To Cart</a>
               </div>
           </div>
@@ -105,7 +106,7 @@
           </div>
         </div>
       </section>
-
+    {% include 'cart.html' %}
     {% include 'footer.html' %}
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
@@ -117,9 +118,13 @@
           const amountNumber = element.closest('.cart__amount-content').querySelector('.cart__amount-number');
           let currentValue = parseInt(amountNumber.textContent);
   
-          if (isAdding) {
+          let quantity = parseInt({{product.quanity}});
+          console.log (quantity)
+
+          if (isAdding == true && currentValue < quantity) {
               currentValue += 1;
-          } else if (currentValue > 1) {
+          } 
+          if (isAdding == false && currentValue > 1 ) {
               currentValue -= 1;
           }
   
@@ -157,7 +162,6 @@
             console.log(quantity); // แสดงค่า quantity ใน console
   
 
-
             // ส่งคำขอ POST ไปยัง endpoint ของ FastAPI
             fetch(`/add-to-cart?product_id=${productId}&quantity=${quantity}`, {
               method: 'POST',
@@ -174,7 +178,7 @@
               // แสดงข้อความแจ้งเตือนบนหน้าเว็บ
               const alertElement = document.querySelector('.alert');
               if (alertElement) {
-                  alertElement.textContent = "สินค้าได้ถูกเพิ่มลงในตะกร้าแล้ว!";
+                  alertElement.textContent = "Success full";
                   alertElement.style.display = 'block';
               }
             })
@@ -184,7 +188,7 @@
                 const alertElement = document.querySelector('.alert');
                 if (alertElement) {
                     alertElement.textContent = "เกิดข้อผิดพลาดในการเพิ่มสินค้าลงในตะกร้า";
-                    alertElement.style.display = 'block';
+                    alertElement.style.display = 'block';w
                 }
             });
         });

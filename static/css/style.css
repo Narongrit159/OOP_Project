@@ -1322,6 +1322,11 @@ input {
     font-weight: var(--font-medium);
 }
 
+.arert{
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+}
+
 /* Show cart */
 .show-cart {
     right: 0;
