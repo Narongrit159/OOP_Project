@@ -1,4 +1,5 @@
 # main.py
+import uvicorn
 from fastapi import FastAPI, Depends, HTTPException, Form, Cookie, status, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -12,7 +13,6 @@ from models import (
     Payment,
     Promotion,
 )
-import uvicorn
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static", html=True), name="static")
