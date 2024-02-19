@@ -10,13 +10,13 @@
       <main class="main">
         <section class="order section container">
           <h2 class="section__title">
-            List of items in your order
+            Checkout Order
           </h2>
           <table width="100%">
               <thead>
                   <tr>
-                      <td>Image</td>
                       <td>Product</td>
+                      <td></td>
                       <td>Price</td>
                       <td>Quantity</td>
                       <td>Subtotal</td>
@@ -24,32 +24,22 @@
               </thead>
 
               <tbody>
+                  {% for product in cart.show_selected_product_list %}
                   <tr>
-                      <td><img src="{{ url_for('static', path='img/slide-2.png') }}" alt=""></td>
-                      <td>Cartoon Astronaut T-Shirts</td>
-                      <td>$118.19</td>
-                      <td>1</td>
-                      <td>$118.19</td>
+                      <td><img src="{{ request.url_for('static', path=product.picture)}}" alt=""></td>
+                      <td>{{product.name}}</td>
+                      <td>${{product.price}}</td>
+                      <td>{{product.quanity}}</td>
+                      <td>${{product.total_price}}</td>
                   </tr>
-                  <tr>
-                      <td><img src="{{ url_for('static', path='img/slide-3.png') }}" alt=""></td>
-                      <td>Cartoon Astronaut T-Shirts</td>
-                      <td>$118.19</td>
-                      <td>1</td>
-                      <td>$118.19</td>
-                  </tr>
-                  <tr>
-                      <td><img src="{{ url_for('static', path='img/slide-1.png') }}" alt=""></td>
-                      <td>Cartoon Astronaut T-Shirts</td>
-                      <td>$118.19</td>
-                      <td>1</td>
-                      <td>$118.19</td>
-                  </tr>
+                  {% endfor %}
               </tbody>
           </table>
-          
-        <div class = "cart-option">
+        </section>
 
+        <section>
+        <div class = "order-option">
+          <div class = "cart-option">
           <div class="cuopon">
             <h2>Apply Coupon</h2>
             <div>
@@ -57,78 +47,58 @@
                 <button class="normal">Choose</button>
             </div>
 
-            <h2>Choose a payment method.</h2>
+            <h2>Payment Option</h2>
             <div>
                 <input type="text" name="" placeholder="Enter Your Coupon">
                 <button class="normal">Choose</button>
             </div>
 
-          <h2>Select your address</h2>
-              <div class="questions__group">
-                  <div class="questions__item">
-                      <header class="questions__header">
-                          <i class="bx bx-plus questions__icon"></i>
-                          <h3 class="questions__item-title">NARONGRIT KAJEEJIT</h3>
-                      </header>
+            <h2>Select your address</h2>
+            <div class="questions__group">
+                {% for address in address_list %}
+                <div class="questions__item">
+                    <header class="questions__header">
+                        <i class="bx bx-plus questions__icon"></i>
+                        <h3 class="questions__item-title">{{address.name}}</h3>
+                    </header>
 
-                      <div class="questions__content">
-                          <p class="questions__description">
-                            105/5,MaeHia, Muang Chiangmai, Chiangmai, 50200, Tel:0620538988
-                          </p>
-                      </div>
-                  </div>
-
-                  <div class="questions__item">
-                      <header class="questions__header">
-                          <i class="bx bx-plus questions__icon"></i>
-                          <h3 class="questions__item-title">NARONGRIT KAJEEJIT (SJ HOUSE)</h3>
-                      </header>
-
-                      <div class="questions__content">
-                          <p class="questions__description">
-                            SJ HOUSE, Ladkrabang 52, Ladkrabang, Ladkrabang, Bangkok, 10520, Tel:0620538988
-                          </p>
-                      </div>
-                  </div>
-
-                  <div class="questions__item">
-                      <header class="questions__header">
-                          <i class="bx bx-plus questions__icon"></i>
-                          <h3 class="questions__item-title">KMTIL</h3>
-                      </header>
-
-                      <div class="questions__content">
-                          <p class="questions__description">
-                            1, Chalong Krung 1 Alley, Ladkrabang, Khet Lat Krabang, Krung Thep Maha Nakhon, 10520,Tel:0923391646,
-                          </p>
-                      </div>
-                  </div>
-              </div>
+                    <div class="questions__content">
+                        <p class="questions__description">
+                          {{address.house_id}},
+                          {{address.soi}}, 
+                          {{address.sub_distric}}, 
+                          {{address.distric}}, 
+                          {{address.provice}}, 
+                          {{address.post_code}} ,Tel:
+                          {{address.tel}}
+                        </p>
+                    </div>
+                </div>
             </div>
+            {% endfor %}
+
           <div class="subtotal">
-            <h2>Cart Totals</h2>
+            <h2>Order Total</h2>
             <table>
                 <tr>
-                    <td>Cart Subtotal</td>
-                    <td>$ 335</td>
+                    <td>Cart Subtotal ({{cart.total_quantity}} items) </td>
+                    <td>${{'%.2f'|format(cart.total_price)}}</td>
                 </tr>
                 <tr>
-                    <td>Shipping</td>
-                    <td>Free</td>
+                    <td>Shipping Subtotal</td>
+                    <td><a>Free</a></td>
                 </tr>
                 <tr>
-                    <td>Total</td>
-                    <td>$ 335</td>
+                    <td>Total Payment</td>
+                    <td>${{'%.2f'|format(cart.total_price)}}</td>
                 </tr>
             </table>
           </div>
         </div>
-
         <div class = "order-confirm">
-          <button class="button">Proceed to checkout</button>
+          <button class="button">Confirm To Place Order</button>
         </div>
-
-        </div>
+      </div>
       </section>
     </main>
     {% include 'footer.html' %}

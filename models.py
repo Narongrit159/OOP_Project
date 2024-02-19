@@ -226,6 +226,10 @@ class Custumer_account(Account):
     def get_cart(self):
         return self.__cart
 
+    @property
+    def address_list(self):
+        return self.__address_list
+
     def add_address(
         self,
         name,
@@ -404,10 +408,15 @@ class Selected_product(Product):
     def __init__(self, name, product_id, price, category, color, picture, quanity):
         super().__init__(name, product_id, price, category, color, picture, quanity)
         self.__quanity = quanity
+        self.__total_price = price * quanity
 
     @property
     def quanity(self):
         return self.__quanity
+
+    @property
+    def total_price(self):
+        return self.__total_price
 
     def edit_quanity(self, other):
         self.__quanity += other

@@ -231,7 +231,6 @@ def create_new_instances():
         )
     )
 
-
     chick_shop.add_product_to_cart("chicken", 1, 2)
     chick_shop.add_product_to_cart("chicken", 2, 2)
     chick_shop.add_product_to_cart("chicken", 3, 2)
@@ -311,10 +310,11 @@ def details(request: Request, product_id: int, username: str = Cookie(default=No
 ######################CHECK OUT ORDER######################
 @app.get("/check-out-order", response_class=HTMLResponse)
 def get_check_out_order(request: Request, username: str = Cookie(default=None)):
+    account = chick_shop.search_account_by_username(username)
     template_data = get_template_data(username)
-    template_data.update({"request": request})
-    order = chick_shop.create_order('chicken',1,1,1)
-    print(order.id,order.account,order.payment_type,order.order_price)
+    address_list = account.address_list
+
+    template_data.update({"request": request, "address_list": address_list})
     return templates.TemplateResponse("order.html", template_data)
 
 
