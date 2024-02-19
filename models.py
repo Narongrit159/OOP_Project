@@ -10,15 +10,11 @@ class Controller:
         self.__history_order_list = []
 
     @property
-    def payment_list(self):
-        return self.__payment_list
-
-    @property
-    def product_list(self):
+    def get_product_list(self):
         return self.__product_list
 
     @property
-    def promotion_list(self):
+    def get_promotion_list(self):
         return self.__promotion_list
 
     @property
@@ -203,10 +199,6 @@ class Custumer_account(Account):
     @property
     def get_cart(self):
         return self.__cart
-
-    @property
-    def address_list(self):
-        return self.__address_list
 
     def add_address(
         self,
