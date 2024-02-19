@@ -315,6 +315,8 @@ def details(request: Request, product_id: int, username: str = Cookie(default=No
 def get_check_out_order(request: Request, username: str = Cookie(default=None)):
     template_data = get_template_data(username)
     template_data.update({"request": request})
+    order = chick_shop.create_order('chicken',1,1,1)
+    print(order.id,order.account,order.payment_type,order.order_price)
     return templates.TemplateResponse("order.html", template_data)
 
 
