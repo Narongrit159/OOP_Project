@@ -135,26 +135,23 @@ class Controller:
         order_price = total_price - discount
         return order_price
 
-    def create_order(self, username, address_id, promotion, payment_id):
-        account = self.search_account_by_username(username)
-        cart = account.get_cart
-        selected_product_list = cart.show_selected_product_list
-        check_selected_product = self.check_quanity_product(selected_product_list)
-        if check_selected_product == True:
-            order_id = self.get_last_history_id()
-            payment = self.search_payment_by_id(payment_id)
-            promotion_id = 1
-            order_price = 1
-            promotion = self.search_promotion_by_id(promotion_id)
-            order = Order(
-                order_id,
-                selected_product_list,
-                order_id,
-                selected_product_list,
-                order_price,
-                payment,
-                account,
-            )
+    def create_order(self, username, address_id, promotion_id, payment_id):
+        pass
+        # account = self.search_account_by_username(username)
+        # cart    = account.get_cart
+        # selected_product_list = cart.show_selected_product_list
+        # check_selected_product = self.check_quanity_product(selected_product_list)
+        # if check_selected_product == True:
+        #     order_id = self.get_last_history_id()
+        #     payment = self.search_payment_by_id(payment_id)
+        #     promotion = self.search_promotion_by_id(promotion_id)
+        #     order_price = self.calculate_order_price(cart.total_price,promotion_id)
+        #     address = account.search_address_by_id(address_id)
+        #     order = Order(order_id,selected_product_list,order_price,payment,account,address,address.tel,None)
+        #     self.__history_order_list.append(order)
+        #     return order
+        # return False
+    
 
 
 class Account:
