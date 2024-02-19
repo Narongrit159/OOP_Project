@@ -3,7 +3,16 @@ from fastapi import FastAPI, Depends, HTTPException, Form, Cookie, status, Reque
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from models import Account, Product, Controller, Custumer_account, Owner_account, Cart
+from models import (
+    Product,
+    Controller,
+    Custumer_account,
+    Owner_account,
+    Cart,
+    Payment,
+    Promotion,
+)
+import uvicorn
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static", html=True), name="static")
@@ -21,6 +30,65 @@ def create_new_instances():
         "MAYSA", "0620538988", "maysa", "0000", cart=Cart()
     )
     admin_account = Owner_account("ADMIN", "0", "admin", "0000", "0278645215")
+
+    chicken_account.add_address(
+        "NARONGRIT KAJEEJIT",
+        "105/5",
+        "",
+        "MaeHia",
+        "Muang Chiangmai",
+        "Chiangmai",
+        "50200",
+        "0620538988",
+    )
+    chicken_account.add_address(
+        "NARONGRIT KAJEEJIT (SJ HOUSE)",
+        "105/5",
+        "Ladkrabang 52",
+        "Ladkrabang",
+        "Ladkrabang",
+        "Bangkok",
+        "10520",
+        "0620538988",
+    )
+    tar_account.add_address(
+        "TEERACHART SUTTI",
+        "105/5",
+        "",
+        "MaeHia",
+        "Muang Chiangmai",
+        "Chiangmai",
+        "50200",
+        "0923391646",
+    )
+    tar_account.add_address(
+        "TEERACHART SUTTI",
+        "105/5",
+        "Ladkrabang 50/2",
+        "Ladkrabang",
+        "Ladkrabang",
+        "Bangkok",
+        "50200",
+        "0923391646",
+    )
+    maysa_account.add_address(
+        "CHANAKAN SUESUWAN",
+        "1",
+        "Chalong Krung 1 Alley",
+        "Ladkrabang",
+        "Khet Lat Krabang",
+        "Krung Thep Maha Nakhon",
+        "10520",
+        "0923391646",
+    )
+
+    chick_shop.add_payment(Payment(1, "Internet Banking"))
+    chick_shop.add_payment(Payment(2, "Online Direct Debit"))
+    chick_shop.add_payment(Payment(3, "Bill Payment "))
+
+    chick_shop.add_promotion(Promotion(1, "New customer discount", 5))
+    chick_shop.add_promotion(Promotion(2, "Songkran Festival discount", 10))
+    chick_shop.add_promotion(Promotion(3, "Special discount for women", 30))
 
     chick_shop.add_account(chicken_account)
     chick_shop.add_account(tar_account)
@@ -242,9 +310,18 @@ def details(request: Request, product_id: int, username: str = Cookie(default=No
     return templates.TemplateResponse("details.html", template_data)
 
 
-@app.delete("/remove-product/{product_id}")
-async def remove_product(product_id: int, request: Request):
-    username = request.cookies.get("username")
+######################CHECK OUT ORDER######################
+@app.get("/check-out-order", response_class=HTMLResponse)
+def get_check_out_order(request: Request, username: str = Cookie(default=None)):
+    template_data = get_template_data(username)
+    template_data.update({"request": request})
+    return templates.TemplateResponse("order.html", template_data)
+
+
+@app.delete("/remove-product-form-cart/{product_id}")
+async def remove_product(
+    product_id: int, request: Request, username: str = Cookie(default=None)
+):
     cart = chick_shop.show_cart(username)
     try:
         chick_shop.remove_product_from_cart(username, product_id)

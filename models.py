@@ -37,6 +37,9 @@ class Controller:
         histo_id = len(self.__history_order_list) + 1
         return histo_id
 
+    def add_promotion(self, promotion):
+        self.__promotion_list.append(promotion)
+
     def add_new_product(self, product):
         self.__product_list.append(product)
 
@@ -172,17 +175,46 @@ class Custumer_account(Account):
         return self.__cart
 
     def add_address(
-        self, name, house_id, soi, sub_distric, distric, province, post_code, tel
+        self,
+        name,
+        house_id,
+        soi,
+        sub_distric,
+        distric,
+        province,
+        post_code,
+        tel,
     ):
+        address_id = len(self.__address_list) + 1
         self.__address_list.append(
-            Address(name, house_id, soi, sub_distric, distric, province, post_code, tel)
+            Address(
+                address_id,
+                name,
+                house_id,
+                soi,
+                sub_distric,
+                distric,
+                province,
+                post_code,
+                tel,
+            )
         )
 
 
 class Address:
     def __init__(
-        self, name, house_id, soi, sub_distric, distric, province, post_code, tel
+        self,
+        address_id,
+        name,
+        house_id,
+        soi,
+        sub_distric,
+        distric,
+        province,
+        post_code,
+        tel,
     ):
+        self.__address_id = address_id
         self.__name = name
         self.__house_id = house_id
         self.__soi = soi
@@ -325,7 +357,7 @@ class Selected_product:
 
 
 class Promotion:
-    def __init__(self, name, promotion_id, discount):
+    def __init__(self, promotion_id, name, discount):
         self.__promotion_name = name
         self.__promotion_id = promotion_id
         self.__dicount = discount
@@ -370,10 +402,9 @@ class Order:
 
 
 class Payment:
-    def __init__(self, payment_id, payment_type, discount):
+    def __init__(self, payment_id, payment_type):
         self.__payment_id = payment_id
         self.__payment_type = payment_type
-        self.__discount = discount
 
     @property
     def get_id(self):
@@ -382,10 +413,6 @@ class Payment:
     @property
     def get_payment_type(self):
         return self.__payment_type
-
-    @property
-    def get_discount(self):
-        return self.__discount
 
 
 #######################################

@@ -48,7 +48,9 @@
     <span class="cart__prices-total">${{'%.2f'|format(cart.total_price)}}</span>
   </div>
   <div class="home__buttons">
-    <a href="#" class="button--link button--flex"
+    <a
+      href="{{ request.url_for('get_check_out_order') }}"
+      class="button--link button--flex"
       >Check Out Order <i class="bx bx-right-arrow-alt button__icon"></i
     ></a>
   </div>
@@ -64,7 +66,7 @@
       const totalPriceElement = document.querySelector(".cart__prices-total");
       const quanity = document.querySelector(".cart__prices-item");
 
-      fetch(`/remove-product/${productId}`, { method: "DELETE" })
+      fetch(`/remove-product-form-cart/${productId}`, { method: "DELETE" })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
