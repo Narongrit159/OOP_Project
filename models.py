@@ -47,7 +47,17 @@ class Controller:
         account = self.search_account_by_username(username)
         cart = account.get_cart
         product = self.search_product_by_id(product_id)
-        cart.add_product(Selected_product(product, quanity))
+        cart.add_product(
+            Selected_product(
+                product.product_id,
+                product.name,
+                product.price,
+                product.category,
+                product.color,
+                product.picture,
+                quanity,
+            )
+        )
 
     def add_account(self, account):
         self.__account_list.append(account)
@@ -133,26 +143,34 @@ class Controller:
 
     def calculate_order_price(self, total_price, promotion_id):
         promotion = self.search_promotion_by_id(promotion_id)
-        discount  = promotion.discount
-        order_price = total_price - (total_price * (discount * 0.01) )
+        discount = promotion.discount
+        order_price = total_price - (total_price * (discount * 0.01))
         return order_price
 
     def create_order(self, username, address_id, promotion_id, payment_id):
         pass
         account = self.search_account_by_username(username)
-        cart    = account.get_cart
+        cart = account.get_cart
         selected_product_list = cart.show_selected_product_list
         check_selected_product = self.check_quanity_product(selected_product_list)
         if check_selected_product == True:
             order_id = self.get_last_history_id()
             payment = self.search_payment_by_id(payment_id)
-            order_price = self.calculate_order_price(cart.total_price,promotion_id)
+            order_price = self.calculate_order_price(cart.total_price, promotion_id)
             address = account.search_address_by_id(address_id)
-            order = Order(order_id,selected_product_list,order_price,payment,account,address,address.tel,None)
+            order = Order(
+                order_id,
+                selected_product_list,
+                order_price,
+                payment,
+                account,
+                address,
+                address.tel,
+                None,
+            )
             self.__history_order_list.append(order)
             return order
         return False
-    
 
 
 class Account:
@@ -234,10 +252,11 @@ class Custumer_account(Account):
             )
         )
 
-    def search_address_by_id(self,address_id):
+    def search_address_by_id(self, address_id):
         for address in self.__address_list:
             if address.id == address_id:
                 return address
+
 
 class Address:
     def __init__(
@@ -265,6 +284,7 @@ class Address:
     @property
     def id(self):
         return self.__address_id
+
     @property
     def name(self):
         return self.__name
@@ -345,7 +365,7 @@ class Cart:
     def add_product(self, selected_product):
         product_alredy_incart = False
         for item in self.__selected_product_list:
-            if selected_product.product.product_id == item.product.product_id:
+            if selected_product.product_id == item.product_id:
                 item.edit_quanity(selected_product.quanity)
                 print(item.quanity)
                 product_alredy_incart = True
@@ -354,14 +374,14 @@ class Cart:
 
     def remove_selected_product(self, product_id):
         for selected_product in self.__selected_product_list:
-            if selected_product.product.product_id == product_id:
+            if selected_product.product_id == product_id:
                 self.__selected_product_list.remove(selected_product)
 
     @property
     def total_price(self):
         total_price = 0
         for selected_product in self.__selected_product_list:
-            total_price += selected_product.product.price * selected_product.quanity
+            total_price += selected_product.price * selected_product.quanity
 
         self.__total_price = total_price
 
@@ -380,14 +400,10 @@ class Cart:
         return self.__selected_product_list
 
 
-class Selected_product:
-    def __init__(self, product, quanity):
-        self.__product = product
+class Selected_product(Product):
+    def __init__(self, name, product_id, price, category, color, picture, quanity):
+        super().__init__(name, product_id, price, category, color, picture, quanity)
         self.__quanity = quanity
-
-    @property
-    def product(self):
-        return self.__product
 
     @property
     def quanity(self):
@@ -440,34 +456,34 @@ class Order:
     @property
     def id(self):
         return self.__order_id
-    
+
     @property
     def selected_product_list(self):
         return self.__selected_product_list
-    
+
     @property
     def order_price(self):
         return self.__order_price
-        
+
     @property
     def payment_type(self):
         return self.__payment_type
-    
+
     @property
     def account(self):
         return self.__account
-    
+
     @property
     def address(self):
         return self.__address
-    
+
     @property
     def tel(self):
         return self.__tel
-    
+
     @property
     def status(self):
-        return self.__status    
+        return self.__status
 
 
 class Payment:

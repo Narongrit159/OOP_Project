@@ -912,7 +912,6 @@ input {
 
 .questions__group {
     display: grid;
-    row-gap: 2rem;
 }
 
 .questions__item {
@@ -939,7 +938,7 @@ input {
     display: flex;
     align-items: center;
     column-gap: .5rem;
-    padding: 1rem;
+    padding: 0.5rem;
     cursor: pointer;
 }
 
@@ -1215,8 +1214,147 @@ input {
 .show-login {
     right: 0;
 }
+/*=============== ORDER ===============*/
 
+.order{
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    background-color: var(--container-color);
+    margin-top: 5rem;
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-medium);
+}
+/* Cart Page */
+
+.order table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    white-space: nowrap;
+    border: 1px solid var(--text-color);
+    border-left: none;
+    border-right: none;
+}
+
+.order table img {
+    width: 50%;
+}
+
+.order table td:nth-child(1) {
+    width: 15%;
+    text-align: center;
+}
+
+.order table td:nth-child(2) {
+    width: 30%;
+    text-align: center;
+}
+
+.order table td:nth-child(3) {
+    width: 20%;
+    text-align: center;
+}
+
+.order table td:nth-child(4){
+    width: 10%;
+    text-align: center;
+}
+.order table td:nth-child(5){
+    width: 10%;
+    text-align: center;
+}
+
+.order table thead {
+    border: 1px solid var(--text-color);
+    border-left: none;
+    border-right: none;
+    
+}
+
+.order table thead td {
+    padding: 18px 0;
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-bold);
+}
+
+.order table tbody tr td {
+    padding: 2%;
+    font-size: var(--normal-font-size);
+}
+
+.order table tbody td {
+    font-size: 13px;
+}
+
+.cart-option{
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+}
+.subtotal,
+.cuopon {
+
+    margin-bottom: 30px;
+    font-family: var(--body-font);
+}
+
+.cuopon h2,
+
+.subtotal h2 {
+    padding-top: 30px;
+    padding-bottom: 5px;
+}
+
+.cuopon input {
+    padding: 10px 20px;
+    outline: none;
+    width: 60%;
+    margin-right: 10px;
+    border: 1px solid #e2e9e1;
+}
+
+.cuopon button,
+.subtotal button {
+    background: #575757;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: .5rem;
+}
+
+.subtotal table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    font-family: var(--body-font);
+}
+.subtotal table td {
+    width: 50%;
+    border: 1px solid #e2e9e1;
+    padding: 10px;
+
+}
+
+.subtotal table tr:nth-child(3) {
+    width: 50%;
+    border: 1px solid #e2e9e1;
+    padding: 10px;
+    font-weight: var(--font-bold);
+    color: var(--first-color);
+}
+
+.order-confirm{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.order-confirm .button {
+    padding: 10px;
+}
 /*=============== CART ===============*/
+
 .cart {
     position: fixed;
     background-color: var(--body-color);

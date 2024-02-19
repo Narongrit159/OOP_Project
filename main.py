@@ -231,12 +231,10 @@ def create_new_instances():
         )
     )
 
-    chick_shop.add_product_to_cart("chicken", 3, 2)
-    chick_shop.add_product_to_cart("chicken", 2, 2)
+
     chick_shop.add_product_to_cart("chicken", 1, 2)
-    chick_shop.add_product_to_cart("chicken", 6, 2)
-    chick_shop.add_product_to_cart("chicken", 5, 2)
-    chick_shop.add_product_to_cart("chicken", 4, 2)
+    chick_shop.add_product_to_cart("chicken", 2, 2)
+    chick_shop.add_product_to_cart("chicken", 3, 2)
 
 
 create_new_instances()

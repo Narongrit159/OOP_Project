@@ -6,11 +6,137 @@
   </head>
   <body>
     {% include 'header.html' %}
+          
+      <main class="main">
+        <section class="order section container">
+          <h2 class="section__title">
+            List of items in your order
+          </h2>
+          <table width="100%">
+              <thead>
+                  <tr>
+                      <td>Image</td>
+                      <td>Product</td>
+                      <td>Price</td>
+                      <td>Quantity</td>
+                      <td>Subtotal</td>
+                  </tr>
+              </thead>
+
+              <tbody>
+                  <tr>
+                      <td><img src="{{ url_for('static', path='img/slide-2.png') }}" alt=""></td>
+                      <td>Cartoon Astronaut T-Shirts</td>
+                      <td>$118.19</td>
+                      <td>1</td>
+                      <td>$118.19</td>
+                  </tr>
+                  <tr>
+                      <td><img src="{{ url_for('static', path='img/slide-3.png') }}" alt=""></td>
+                      <td>Cartoon Astronaut T-Shirts</td>
+                      <td>$118.19</td>
+                      <td>1</td>
+                      <td>$118.19</td>
+                  </tr>
+                  <tr>
+                      <td><img src="{{ url_for('static', path='img/slide-1.png') }}" alt=""></td>
+                      <td>Cartoon Astronaut T-Shirts</td>
+                      <td>$118.19</td>
+                      <td>1</td>
+                      <td>$118.19</td>
+                  </tr>
+              </tbody>
+          </table>
+          
+        <div class = "cart-option">
+
+          <div class="cuopon">
+            <h2>Apply Coupon</h2>
+            <div>
+                <input type="text" name="" placeholder="Enter Your Coupon">
+                <button class="normal">Choose</button>
+            </div>
+
+            <h2>Choose a payment method.</h2>
+            <div>
+                <input type="text" name="" placeholder="Enter Your Coupon">
+                <button class="normal">Choose</button>
+            </div>
+
+          <h2>Select your address</h2>
+              <div class="questions__group">
+                  <div class="questions__item">
+                      <header class="questions__header">
+                          <i class="bx bx-plus questions__icon"></i>
+                          <h3 class="questions__item-title">NARONGRIT KAJEEJIT</h3>
+                      </header>
+
+                      <div class="questions__content">
+                          <p class="questions__description">
+                            105/5,MaeHia, Muang Chiangmai, Chiangmai, 50200, Tel:0620538988
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="questions__item">
+                      <header class="questions__header">
+                          <i class="bx bx-plus questions__icon"></i>
+                          <h3 class="questions__item-title">NARONGRIT KAJEEJIT (SJ HOUSE)</h3>
+                      </header>
+
+                      <div class="questions__content">
+                          <p class="questions__description">
+                            SJ HOUSE, Ladkrabang 52, Ladkrabang, Ladkrabang, Bangkok, 10520, Tel:0620538988
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="questions__item">
+                      <header class="questions__header">
+                          <i class="bx bx-plus questions__icon"></i>
+                          <h3 class="questions__item-title">KMTIL</h3>
+                      </header>
+
+                      <div class="questions__content">
+                          <p class="questions__description">
+                            1, Chalong Krung 1 Alley, Ladkrabang, Khet Lat Krabang, Krung Thep Maha Nakhon, 10520,Tel:0923391646,
+                          </p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          <div class="subtotal">
+            <h2>Cart Totals</h2>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td>$ 335</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>$ 335</td>
+                </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class = "order-confirm">
+          <button class="button">Proceed to checkout</button>
+        </div>
+
+        </div>
+      </section>
+    </main>
     {% include 'footer.html' %}
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
   </body>
 </html>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
