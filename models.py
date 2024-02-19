@@ -171,6 +171,22 @@ class Controller:
             self.__history_order_list.append(order)
             return order
         return False
+    
+    @property
+    def search_box_color(self):
+        color_list = []
+        for product in self.__product_list:
+            if product.color not in color_list:
+                color_list.append(product.color)
+        return color_list        
+    
+    @property
+    def search_box_category(self):
+        category_list = []
+        for product in self.__product_list:
+            if product.category not in category_list:
+                category_list.append(product.category)   
+        return category_list 
 
 
 class Account:

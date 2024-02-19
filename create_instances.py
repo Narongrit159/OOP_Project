@@ -92,10 +92,10 @@ def create_new_instances():
     chick_shop.add_new_product(
         Product(
             1,
-            "Windbreaker Jacket",
+            "Windbreaker Hood",
             14.99,
-            "Accessory",
-            "red",
+            "Hoodies",
+            "Red",
             "img/new-1.png",
             10,
         )
@@ -105,8 +105,8 @@ def create_new_instances():
             2,
             "Air Jordan Zipper",
             11.99,
-            "Accessory",
-            "red",
+            "Hoodies",
+            "Black",
             "img/new-2.png",
             10,
         )
@@ -117,8 +117,8 @@ def create_new_instances():
             3,
             "Fur Jacket",
             4.99,
-            "Accessory",
-            "red",
+            "Sweatter",
+            "Yellow",
             "img/new-3.png",
             10,
         )
@@ -128,8 +128,8 @@ def create_new_instances():
             4,
             "Fleece Jacket",
             24.99,
-            "Accessory",
-            "red",
+            "Sweatter",
+            "White",
             "img/new-4.png",
             10,
         )
@@ -137,10 +137,10 @@ def create_new_instances():
     chick_shop.add_new_product(
         Product(
             5,
-            "Nike Hoodie",
+            "Red Shirt",
             7.99,
-            "Accessory",
-            "red",
+            "T-Shirt",
+            "Red",
             "img/new-5.png",
             10,
         )
@@ -148,82 +148,16 @@ def create_new_instances():
     chick_shop.add_new_product(
         Product(
             6,
-            "Fleece Jacket",
+            "Nike Hoodies",
             5.99,
-            "Accessory",
-            "red",
+            "Hoodies",
+            "White",
             "img/new-6.png",
             10,
         )
     )
 
-    chick_shop.add_new_product(
-        Product(
-            7,
-            "Windbreaker Jacket",
-            14.99,
-            "Accessory",
-            "red",
-            "img/new-1.png",
-            10,
-        )
-    )
-    chick_shop.add_new_product(
-        Product(
-            8,
-            "Air Jordan Zipper",
-            11.99,
-            "Accessory",
-            "red",
-            "img/new-2.png",
-            10,
-        )
-    )
-
-    chick_shop.add_new_product(
-        Product(
-            9,
-            "Fur Jacket",
-            4.99,
-            "Accessory",
-            "red",
-            "img/new-3.png",
-            10,
-        )
-    )
-    chick_shop.add_new_product(
-        Product(
-            10,
-            "Fleece Jacket",
-            24.99,
-            "Accessory",
-            "red",
-            "img/new-4.png",
-            10,
-        )
-    )
-    chick_shop.add_new_product(
-        Product(
-            11,
-            "Nike Hoodie",
-            7.99,
-            "Accessory",
-            "red",
-            "img/new-5.png",
-            10,
-        )
-    )
-    chick_shop.add_new_product(
-        Product(
-            12,
-            "Fleece Jacket",
-            5.99,
-            "Accessory",
-            "red",
-            "img/new-6.png",
-            10,
-        )
-    )
+    
 
     chick_shop.add_product_to_cart("chicken", 1, 2)
     chick_shop.add_product_to_cart("chicken", 2, 2)
