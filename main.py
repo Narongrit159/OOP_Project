@@ -313,9 +313,24 @@ def details(request: Request, product_id: int, username: str = Cookie(default=No
 ######################CHECK OUT ORDER######################
 @app.get("/check-out-order", response_class=HTMLResponse)
 def get_check_out_order(request: Request, username: str = Cookie(default=None)):
-    template_data = get_template_data(username)
-    template_data.update({"request": request})
-    return templates.TemplateResponse("order.html", template_data)
+    promotion_list = chick_shop.get_product_list
+    payment = chick_shop.payment_list
+    account = chick_shop.search_account_by_username(username)
+    address_list = account.address_list
+    cart = chick_shop.show_cart(username)
+
+    return templates.TemplateResponse(
+        "order.html",
+        {
+            "promotion_list": promotion_list,
+            "payment": payment,
+            "account": account,
+            "address_list": address_list,
+            "cart": cart,
+            "request": request,
+            "username": username,
+        },
+    )
 
 
 @app.delete("/remove-product-form-cart/{product_id}")
@@ -346,7 +361,7 @@ async def add_to_cart(
 
 
 def get_template_data(username: str):
-    product_list = chick_shop.get_product_list
+    product_list = chick_shop.product_list
     account = chick_shop.search_account_by_username(username)
     if account:
         cart = chick_shop.show_cart(username)
