@@ -116,35 +116,45 @@ class Controller:
         for promotion in self.__promotion_list:
             if promotion.promotion_id == promotion_id:
                 return promotion
-            
+
     def search_payment_by_id(self, payment_id):
         for payment in self.__payment_list:
             if payment_id == payment.id:
                 return payment
 
-    def check_quanity_product(self, selected_product_list):########################New method
+    def check_quanity_product(
+        self, selected_product_list
+    ):  ########################New method
         for selected_product in selected_product_list:
             for product in self.__product_list:
                 if selected_product.quanity > product.quanity:
                     return False
         return True
-    
-    def calculate_order_price(self,total_price,discount):
+
+    def calculate_order_price(self, total_price, discount):
         order_price = total_price - discount
         return order_price
-                     
+
     def create_order(self, username, address_id, promotion, payment_id):
         account = self.search_account_by_username(username)
-        cart    = account.get_cart
+        cart = account.get_cart
         selected_product_list = cart.show_selected_product_list
         check_selected_product = self.check_quanity_product(selected_product_list)
         if check_selected_product == True:
             order_id = self.get_last_history_id()
             payment = self.search_payment_by_id(payment_id)
+            promotion_id = 1
+            order_price = 1
             promotion = self.search_promotion_by_id(promotion_id)
-            order = Order(order_id,selected_product_list,
-                          order_id,selected_product_list,order_price,payment,account,address,tel,status
-        
+            order = Order(
+                order_id,
+                selected_product_list,
+                order_id,
+                selected_product_list,
+                order_price,
+                payment,
+                account,
+            )
 
 
 class Account:
@@ -402,7 +412,17 @@ class Promotion:
 
 
 class Order:
-    def __init__(self,order_id,selected_product_list,order_price,payment_type,account,address,tel,status,):
+    def __init__(
+        self,
+        order_id,
+        selected_product_list,
+        order_price,
+        payment_type,
+        account,
+        address,
+        tel,
+        status,
+    ):
         self.__order_id = order_id
         self.__selected_product_list = selected_product_list
         self.__order_price = order_price
@@ -430,13 +450,6 @@ class Payment:
     def payment_type(self):
         return self.__payment_type
 
-<<<<<<< HEAD
-    @property
-    def discount(self):
-        return self.__discount
-
-=======
->>>>>>> 809111f939fd73f5609263c09c864539bd3eb949
 
 #######################################
 a = 2
