@@ -164,7 +164,7 @@ def create_new_instances():
             "Hoodies",
             "Gray",
             "img/Hoodie-1 (gray).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -175,7 +175,7 @@ def create_new_instances():
             "Hoodies",
             "Blue",
             "img/Hoodie-2 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -186,7 +186,7 @@ def create_new_instances():
             "Hoodies",
             "Green",
             "img/Hoodie-3 (green).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -197,7 +197,7 @@ def create_new_instances():
             "Hoodies",
             "Orange",
             "img/Hoodie-4 (orange).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -208,7 +208,7 @@ def create_new_instances():
             "Hoodies",
             "Green",
             "img/Hoodie-5 (green).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -219,7 +219,7 @@ def create_new_instances():
             "Hoodies",
             "Brown",
             "img/Hoodie-6 (brown).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -230,7 +230,7 @@ def create_new_instances():
             "Hoodies",
             "Brown",
             "img/Hoodie-7 (brown).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -241,7 +241,7 @@ def create_new_instances():
             "Hoodies",
             "Red",
             "img/Hoodie-8 (red).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -252,7 +252,7 @@ def create_new_instances():
             "Hoodies",
             "Gray",
             "img/Hoodie-9 (gray).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -263,7 +263,7 @@ def create_new_instances():
             "Hoodies",
             "Red",
             "img/Hoodie-10 (red).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -274,7 +274,7 @@ def create_new_instances():
             "Hoodies",
             "Blue",
             "img/Hoodie-11 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -285,7 +285,7 @@ def create_new_instances():
             "Polo",
             "White",
             "img/Polo-1 (white).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -296,7 +296,7 @@ def create_new_instances():
             "Polo",
             "Blue",
             "img/Polo-2 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -307,7 +307,7 @@ def create_new_instances():
             "Polo",
             "Blue",
             "img/Polo-3 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -318,7 +318,7 @@ def create_new_instances():
             "Polo",
             "Orange",
             "img/Polo-4 (Orange).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -329,7 +329,7 @@ def create_new_instances():
             "Polo",
             "Pink",
             "img/Polo-5 (pink).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -340,7 +340,7 @@ def create_new_instances():
             "Polo",
             "Blue",
             "img/Polo-6 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -351,7 +351,7 @@ def create_new_instances():
             "Polo",
             "Blue",
             "img/Polo-7 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -362,7 +362,7 @@ def create_new_instances():
             "Polo",
             "White",
             "img/Polo-8 (white).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -373,10 +373,10 @@ def create_new_instances():
             "Polo",
             "White",
             "img/Polo-9 (white).png",
-            10
+            10,
         )
     )
-    chick_shop.add_new_product(########################
+    chick_shop.add_new_product(
         Product(
             27,
             "White Shirt",
@@ -384,7 +384,7 @@ def create_new_instances():
             "Shirt",
             "White",
             "img/Shirt-1 (white).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -395,7 +395,7 @@ def create_new_instances():
             "Shirt",
             "Blue",
             "img/Shirt-2 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -406,7 +406,7 @@ def create_new_instances():
             "Shirt",
             "Pink",
             "img/Shirt-3 (pink).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -417,7 +417,7 @@ def create_new_instances():
             "Shirt",
             "Green",
             "img/Shirt-4 (green).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -428,7 +428,7 @@ def create_new_instances():
             "Shirt",
             "Red",
             "img/Shirt-5 (red).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -439,7 +439,7 @@ def create_new_instances():
             "Shirt",
             "Pink",
             "img/Shirt-6 (red).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -450,7 +450,7 @@ def create_new_instances():
             "Shirt",
             "Black",
             "img/Shirt-7 (Black).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -461,7 +461,7 @@ def create_new_instances():
             "Shirt",
             "White",
             "img/Shirt-8 (white).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -472,7 +472,7 @@ def create_new_instances():
             "Sweater",
             "Brown",
             "img/Sweater-1 (brown).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -483,7 +483,7 @@ def create_new_instances():
             "Sweater",
             "Black",
             "img/Sweater-2 (black).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -494,7 +494,7 @@ def create_new_instances():
             "Sweater",
             "Gray",
             "img/Sweater-3 (gray).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -505,7 +505,7 @@ def create_new_instances():
             "Sweater",
             "Blue",
             "img/Sweater-4 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -516,7 +516,7 @@ def create_new_instances():
             "Sweater",
             "White",
             "img/Sweater-5 (white).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -527,7 +527,7 @@ def create_new_instances():
             "Sweater",
             "Red",
             "img/Sweater-6 (red).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -538,7 +538,7 @@ def create_new_instances():
             "Sweater",
             "Red",
             "img/Sweater-7 (red).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -549,7 +549,7 @@ def create_new_instances():
             "Sweater",
             "Brown",
             "img/Sweater-8 (brown).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -560,7 +560,7 @@ def create_new_instances():
             "Sweater",
             "Blue",
             "img/Sweater-10 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -571,7 +571,7 @@ def create_new_instances():
             "Sweater",
             "Blue",
             "img/Sweater-11 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -582,7 +582,7 @@ def create_new_instances():
             "Sweater",
             "Black",
             "img/Sweater-12 (black).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -593,7 +593,7 @@ def create_new_instances():
             "Sweater",
             "Green",
             "img/Sweater-13 (green).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -604,7 +604,7 @@ def create_new_instances():
             "T-Shirt",
             "Blue",
             "img/T-Shirt-1 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -615,7 +615,7 @@ def create_new_instances():
             "T-Shirt",
             "Blue",
             "img/T-Shirt-1 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -626,7 +626,7 @@ def create_new_instances():
             "T-Shirt",
             "Brown",
             "img/T-Shirt-2 (brown).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -637,7 +637,7 @@ def create_new_instances():
             "T-Shirt",
             "White",
             "img/T-Shirt-3 (white).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -648,7 +648,7 @@ def create_new_instances():
             "T-Shirt",
             "Orange",
             "img/T-Shirt-4 (orange).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -659,7 +659,7 @@ def create_new_instances():
             "T-Shirt",
             "Pink",
             "img/T-Shirt-5 (pink).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -670,7 +670,7 @@ def create_new_instances():
             "T-Shirt",
             "Red",
             "img/T-Shirt-6 (red).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -681,7 +681,7 @@ def create_new_instances():
             "T-Shirt",
             "Blue",
             "img/T-Shirt-7 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
@@ -692,21 +692,20 @@ def create_new_instances():
             "T-Shirt",
             "Blue",
             "img/T-Shirt-8 (blue).png",
-            10
+            10,
         )
     )
     chick_shop.add_new_product(
         Product(
-            54,
+            55,
             "Black T-Shirt",
             14.99,
             "T-Shirt",
             "Black",
             "img/T-Shirt-9 (black).png",
-            10
+            10,
         )
     )
-
 
     chick_shop.add_product_to_cart("chicken", 1, 2)
     chick_shop.add_product_to_cart("chicken", 2, 2)
