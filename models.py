@@ -187,6 +187,19 @@ class Controller:
             if product.category not in category_list:
                 category_list.append(product.category)   
         return category_list 
+    
+    def check_box(self,category_list,color_list):
+        show_list = []
+        for product in self.__product_list:
+            if product.category in category_list and product.color in color_list:
+                show_list.append(product)
+        return show_list
+        
+    def check_account_type(self,account):
+        status = type(account)
+        if status is Owner_account:
+            return status
+        return status
 
 
 class Account:
