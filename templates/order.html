@@ -6,7 +6,7 @@
   </head>
   <body>
     {% include 'header.html' %}
-          
+    <form action="/submit-order" method="post">   
       <main class="main">
         <section class="order section container">
           <h2 class="section__title">
@@ -43,14 +43,27 @@
           <div class="cuopon">
             <h2>Apply Coupon</h2>
             <div>
-                <input type="text" name="" placeholder="Enter Your Coupon">
-                <button class="normal">Choose</button>
+              <div class="custom-select">
+                <p>Click on the rectangle below to select the store's promotion.</p>
+                <select id="promotionSelect" name="promotion_id">
+                  <option id="0" name="promotion_id" value="0">None</option>
+
+                  {% for promotion in promotion_list %}
+                  <option id="{{promotion.promotion_id}}" name="promotion_id" value="{{promotion.promotion_id}}">{{promotion.promotion_name }} {{promotion.discount}}%</option>
+                  {% endfor %}
+                  
+                </select>
+              </div>
             </div>
 
             <h2>Payment Option</h2>
             <div>
-                <input type="text" name="" placeholder="Enter Your Coupon">
-                <button class="normal">Choose</button>
+              {% for pyment_method in payment_method_list %}
+              <div>
+                <input type="radio" name="pyment_medthod" id="{{pyment_method.id}}" value="{{pyment_method.id}}"/>
+                <label>{{pyment_method.payment_type}}</label>
+              </div>
+              {% endfor %}
             </div>
 
             <h2>Select your address</h2>
@@ -58,6 +71,9 @@
                 {% for address in address_list %}
                 <div class="questions__item">
                     <header class="questions__header">
+                      <div>
+                        <input type="radio" name="address" id="{{address.id}}" value="{{ address.id }}">
+                      </div>
                         <i class="bx bx-plus questions__icon"></i>
                         <h3 class="questions__item-title">{{address.name}}</h3>
                     </header>
@@ -95,12 +111,13 @@
             </table>
           </div>
         </div>
-        <div class = "order-confirm">
-          <button class="button">Confirm To Place Order</button>
+        <div class = "order-confirm" >
+          <button class="button" type="submit">Confirm To Place Order</button>
         </div>
       </div>
       </section>
     </main>
+  </form>
     {% include 'footer.html' %}
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
@@ -116,5 +133,5 @@
               navShop.style.display = 'none';
           }
       }
-  });
+  })  
 </script>

@@ -76,9 +76,9 @@ def create_new_instances():
         "0923391646",
     )
 
-    chick_shop.add_payment(Payment(1, "Internet Banking"))
-    chick_shop.add_payment(Payment(2, "Online Direct Debit"))
-    chick_shop.add_payment(Payment(3, "Bill Payment "))
+    chick_shop.add_payment(Payment(1, "Paypal"))
+    chick_shop.add_payment(Payment(2, "Card"))
+    chick_shop.add_payment(Payment(3, "Bobile Banking"))
 
     chick_shop.add_promotion(Promotion(1, "New customer discount", 5))
     chick_shop.add_promotion(Promotion(2, "Songkran Festival discount", 10))
@@ -156,8 +156,6 @@ def create_new_instances():
             10,
         )
     )
-
-    
 
     chick_shop.add_product_to_cart("chicken", 1, 2)
     chick_shop.add_product_to_cart("chicken", 2, 2)

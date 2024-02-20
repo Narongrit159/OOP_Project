@@ -86,11 +86,35 @@ def details(request: Request, product_id: int, username: str = Cookie(default=No
 @app.get("/check-out-order", response_class=HTMLResponse)
 def get_check_out_order(request: Request, username: str = Cookie(default=None)):
     account = chick_shop.search_account_by_username(username)
+    payment_method_list = chick_shop.payment_list
+    promotion_list = chick_shop.get_promotion_list
     template_data = get_template_data(username)
     address_list = account.address_list
 
-    template_data.update({"request": request, "address_list": address_list})
+    template_data.update(
+        {
+            "request": request,
+            "address_list": address_list,
+            "payment_method_list": payment_method_list,
+            "promotion_list": promotion_list,
+        }
+    )
     return templates.TemplateResponse("order.html", template_data)
+
+
+@app.post("/submit-order")
+async def submit_order(
+    request: Request,
+    promotion_id: str = Form(...),
+    address: str = Form(...),
+    pyment_medthod: str = Form(...),
+):
+    return {
+        "message": "Order submitted successfully",
+        "promotion_id": promotion_id,
+        "address": address,
+        "pyment_medthod": pyment_medthod,
+    }
 
 
 @app.delete("/remove-product-form-cart/{product_id}")
