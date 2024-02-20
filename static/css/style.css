@@ -137,7 +137,7 @@ input {
 
 /*=============== LAYOUT ===============*/
 .container {
-    max-width: 968px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -571,8 +571,8 @@ input {
 
 /*=============== SHOP PAGE ===============*/
 .shop__container {
-    grid-template-columns: 1.7fr 3.3fr;
-    column-gap: 1.8rem;
+    grid-template-columns: 2.5fr 8.3fr;
+    column-gap: 1.5rem;
 }
 
 .sidebar {
@@ -609,8 +609,8 @@ input {
 }
 
 .shop__items {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.6rem;
+    grid-template-columns: repeat(3, 2fr);
+    gap: 1.3rem;
 }
 
 .shop__content {
@@ -1293,7 +1293,7 @@ input {
     font-weight: var(--font-medium);
     padding: 0rem 2rem 3rem 2rem;
     border-radius: 1rem;
-    max-width: 968px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1828,7 +1828,7 @@ input {
     }
 
     .shop__container {
-        grid-template-columns: 1.6fr 3.4fr;
+        grid-template-columns: 1.6fr 5.1fr;
     }
 
     .shop__content {
