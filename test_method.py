@@ -10,10 +10,15 @@ chick_shop = get_chick_shop_controller()
 # print(product)
 
 
-# check_box = chick_shop.check_box(["Hoodies","T-Shirt"],["Red"])
+check_box = chick_shop.check_box(["Hoodies"],[])
+for i in check_box:
+    print(i.name,    i.color     ,i.category)
+
+# admin_account = chick_shop.search_account_by_username("admin")
+# status_account = chick_shop.check_account_type(admin_account)
+# print(status_account)
+
+
+# check = chick_shop.search_product_by_color("Red")
 # for i in check_box:
 #     print(i.name,    i.color     ,i.category)
-
-admin_account = chick_shop.search_account_by_username("admin")
-status_account = chick_shop.check_account_type(admin_account)
-print(status_account)

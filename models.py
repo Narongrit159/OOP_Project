@@ -190,6 +190,18 @@ class Controller:
     
     def check_box(self,category_list,color_list):
         show_list = []
+        if len(category_list) == 0:
+            for product in self.__product_list:
+                if product.color in color_list:
+                    show_list.append(product)
+            return show_list
+    
+        if len(color_list) == 0:
+            for product in self.__product_list:
+                if product.category in category_list:
+                    show_list.append(product)
+            return show_list
+         
         for product in self.__product_list:
             if product.category in category_list and product.color in color_list:
                 show_list.append(product)
