@@ -108,13 +108,18 @@ async def submit_order(
     promotion_id: str = Form(...),
     address: str = Form(...),
     pyment_medthod: str = Form(...),
+    username: str = Cookie(default=None),
 ):
-    return {
-        "message": "Order submitted successfully",
-        "promotion_id": promotion_id,
-        "address": address,
-        "pyment_medthod": pyment_medthod,
-    }
+    template_data = get_template_data(username)
+    template_data.update(
+        {
+            "request": request,
+            "promotion_id": promotion_id,
+            "address": address,
+            "pyment_medthod": pyment_medthod,
+        }
+    )
+    return templates.TemplateResponse("order_detail.html", template_data)
 
 
 @app.delete("/remove-product-form-cart/{product_id}")

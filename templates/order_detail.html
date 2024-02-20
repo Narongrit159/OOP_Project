@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include 'head.html' %}
+  </head>
+  </head>
+  <body>
+    {% include 'header.html' %}
+    {% include 'footer.html' %}
+    <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', path='js/main.js') }}"></script>
+  </body>
+</html>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      if (window.location.pathname.includes('check-out-order')) {
+          var navShop = document.querySelector('.nav__shop');
+          if (navShop) {
+              navShop.style.display = 'none';
+          }
+      }
+  })  
+</script>
