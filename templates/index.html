@@ -16,7 +16,6 @@
         <div class="new__container container">
           <div class="swiper new-swiper">
             <div class="swiper-wrapper">
-
               {% for product in product_list %}
               <!--NEW CONTENT-->
               <div class="new__content swiper-slide">
@@ -39,18 +38,18 @@
                   <i class="bx bx-cart-alt new__icon"></i>
                 </a>
               </div>
-            </a>
-            {% endfor %}
-
+              {% endfor %}
             </div>
           </div>
         </div>
       </section>
-
+    </main>
+    
     {% include 'how_to_order.html' %}
     {% include 'footer.html' %}
     
     <script src="{{ url_for('static', path='js/swiper-bundle.min.js') }}"></script>
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
+    
   </body>
 </html>

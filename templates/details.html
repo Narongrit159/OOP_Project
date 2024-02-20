@@ -13,6 +13,8 @@
           <h3 class="breadcrumb__subtitle">Home > <span>Details</span></h3>
 
           <div class="details__container grid">
+
+
               <div class="home__group">
                   <div class="details__img-tag">New</div>
                   <img src="{{ request.url_for('static', path=product.picture) }}" alt="">
@@ -46,6 +48,7 @@
                       </div>
                   </div>
                   <h3 class="description__title">Stock : {{product.quanity}} piece </h3>
+
                   <div class="cart__amount">
                       <div class="cart__amount-content">
                           <span class="cart__amount-box">
@@ -58,14 +61,17 @@
                               <i class="bx bx-plus"></i>
                           </span>
                       </div>
-
                       <i class="bx bx-heart cart__amount-heart"></i>
                   </div>
+
                   <h3 class="description__title"><a class = "alert" ></a></h3>
-                  
-                    <a href="" class="button" data-product-id="{{ product.product_id }}">Add To Cart</a>
+                  <a href="" class="button" data-product-id="{{ product.product_id }}">Add To Cart</a>
               </div>
           </div>
+
+
+
+
         </div>
       </section>
 
