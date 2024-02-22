@@ -173,6 +173,7 @@ class Controller:
                 None,
             )
             self.__history_order_list.append(order)
+            self.change_status_order(order_id,1)
             return order
         return False
 
@@ -219,6 +220,36 @@ class Controller:
         if status is Owner_account:
             return status
         return status
+    
+    def clear_cart(self,username):
+        account = self.search_account_by_username(username)
+        cart    = account.get_cart
+        selected_list = cart.show_selected_product_list
+        selected_list.clear()
+        
+    def change_status_order(self,order_id,status_id):
+        for order in self.__history_order_list:
+            if order_id == order.id:
+                if status_id == 1:
+                    order.set_status("Preparing to shipping")
+                    return True
+                if status_id == 2:
+                    order.set_status("Shipping")
+                    return True
+                if status_id == 3:
+                    order.set_status("Successful")
+                    return True
+                
+    def show_history_order_user(self,username):
+        show_list = []
+        account = self.search_account_by_username(username)
+        for order in self.__history_order_list:
+            if order.account == account:
+                show_list.append(order)
+        return show_list
+                
+        
+            
 
 
 class Account:
@@ -541,6 +572,9 @@ class Order:
     @property
     def status(self):
         return self.__status
+    
+    def set_status(self,new_status):
+        self.__status = new_status
 
 
 class Payment:
